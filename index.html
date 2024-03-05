@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>UniGathers</title>
+		<script type="text/javascript" src="js/md5.js"></script>
+		<script type="text/javascript" src="js/code.js"></script>
+		<link href="css/styles.css" rel="stylesheet" />
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, 
+                initial-scale=1.0"
+		/>
+	</head>
+	<body>
+		<nav id="navbar" class="custom-nav"></nav>
+
+		<div class="content">
+			<div class="content-container">
+				<header>
+					<h1 class="heading">Welcome to UniGather!</h1>
+				</header>
+				<h3 class="title">Keep track of events near you.</h3>
+
+				<div id="field-container" class="container">
+					<!-- upper button section to select
+            		the login or signup form -->
+					<div class="slider" id="slider"></div>
+					<div class="slidebtn">
+						<button
+							class="login"
+							id="loginSelect"
+							onclick="showLogin()"
+						>
+							Login
+						</button>
+						<button
+							class="register"
+							id="registerSelect"
+							onclick="showSignup()"
+						>
+							Register
+						</button>
+					</div>
+
+					<!-- Form section that contains the
+          			login and the signup form -->
+					<div id="form-fields" class="form-section">
+						<form id="loginForm" class="login-box">
+							<input
+								type="text"
+								class="ele"
+								id="loginName"
+								placeholder="Username"
+								name="username"
+								required=""
+							/>
+							<input
+								type="password"
+								class="ele"
+								id="loginPassword"
+								placeholder="Password"
+								name="password"
+								required=""
+								pattern="(?=.*\d)(?=.*[A-Za-z])(?=.*[!@#$%^&amp;*]).{8,32}"
+							/>
+							<button
+								type="button"
+								class="button"
+								id="loginButton"
+								onclick="doLogin();"
+							>
+								Login
+							</button>
+							<span id="loginResult"></span>
+						</form>
+
+						<!-- Sign up -->
+						<form id="signupForm" class="register-box">
+							<input
+								type="text"
+								class="name ele"
+								id="firstName"
+								placeholder="First Name"
+								name="firstName"
+								required
+							/>
+							<input
+								type="text"
+								class="name ele"
+								id="lastName"
+								placeholder="Last Name"
+								name="lastName"
+								required
+							/>
+							<input
+								type="text"
+								class="email ele"
+								id="email"
+								placeholder="Email"
+								name="email"
+								required
+							/>
+							<input
+								type="text"
+								class="user ele"
+								id="username"
+								placeholder="Username"
+								name="login"
+								required
+								pattern="(?=.*[a-zA-Z])[a-zA-Z0-9-_]{3,18}"
+								title="Must be between 3-13 characters and must contain at least one letter"
+							/>
+							<input
+								type="password"
+								class="password ele"
+								id="password"
+								placeholder="Password"
+								name="password"
+								pattern="(?=.*\d)(?=.*[A-Za-z])(?=.*[!@#$%^&*]).{8,32}"
+								required
+								title="Must be between 8-32 characters and must contain at least one number and one special character"
+							/>
+							<input
+								type="checkbox"
+								class="check"
+								id="checkbox"
+								name="admin"
+								onchange="updateCheckboxValue()"
+							/><label for="check" class="check"
+								>Are you an Admin or RSO</label
+							>
+							<button
+								type="button"
+								class="button"
+								id="signupButton"
+								onclick="doRegister();"
+							>
+								Register!
+							</button>
+							<span id="signupResult"></span>
+						</form>
+					</div>
+				</div>
+				<!-- Field container div -->
+			</div>
+		</div>
+	</body>
+</html>
