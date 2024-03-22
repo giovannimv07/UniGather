@@ -12,12 +12,15 @@ menuicn.addEventListener("click", () => {
             newBox.innerHTML = `
                 <div class="text"> 
                     <h2 class="event-heading">New Box</h2> 
-                    <h2 class="topic">Content</h2> 
-                    <button class="delete-box">Delete</button>
+                    <p class="topic">University Name</p> 
+                    <p class="topic">RSO hosting</p> 
+                    <p class="location">Location here </p>
+                    <p class="info">Info of the event would go here blah</p>
+                    <button class="delete-button">Delete Event</button>
                 </div>`;
             boxContainer.appendChild(newBox);
              // Attach removeBox function to delete button inside the new box
-    newBox.querySelector('.delete-box').addEventListener('click', removeBox);
+    newBox.querySelector('.delete-button').addEventListener('click', removeBox);
         }
 
         // Attach addBox function to button-34
@@ -33,7 +36,7 @@ menuicn.addEventListener("click", () => {
         }
 
         // Attach removeBox function to delete buttons inside boxes
-        const deleteButtons = document.querySelectorAll('.delete-box');
+        const deleteButtons = document.querySelectorAll('.delete-button');
         deleteButtons.forEach(button => {
             button.addEventListener('click', removeBox);
         });

@@ -214,11 +214,12 @@ border-left: 5px solid #010058af;
 background-color: var(--Border-color); 
 } 
 .box { 
-height: 150px; 
-width: 230px; 
+height: 500px; 
+width: 400px; 
 border-radius: 20px; 
 box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); 
-padding: 20px; 
+padding-left: 25px; 
+padding-right: 25px;
 display: flex; 
 align-items: center; 
 justify-content: space-around; 
@@ -240,13 +241,25 @@ height: 50px;
 color: white; 
 } 
 .topic { 
-font-size: 13px; 
+font-size: 18px; 
 font-weight: 400; 
 letter-spacing: 1px; 
 } 
 
+.location { 
+    font-size: 15px; 
+    font-weight: 400; 
+    letter-spacing: 1px; 
+} 
+
+.info { 
+    font-size: 15px; 
+    font-weight: 400; 
+    letter-spacing: 1px; 
+} 
+
 .event-heading { 
-font-size: 20px; 
+font-size: 30px; 
 letter-spacing: 3px; 
 } 
 
@@ -341,7 +354,28 @@ border-radius: 4px;
     border: 0;
   }
 
+  .delete-button {
+    background: #5E5DF0;
+    border-radius: 999px;
+    box-shadow: #5E5DF0 0 10px 20px -10px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    line-height: 24px;
+    opacity: 1;
+    outline: 0 solid transparent;
+    padding: 8px 18px;
+    user-select: none;
+    border: 0;
+  }
+
+  
+
   h2 {
     text-align: center;
+    margin-bottom: 15px;
+  }
+
+  p{
     margin-bottom: 15px;
   }
