@@ -89,20 +89,8 @@ background-color: var(--secondary-color);
 cursor: pointer; 
 } 
 
-.message { 
-gap: 40px; 
-position: relative; 
-cursor: pointer; 
-} 
-.circle { 
-height: 7px; 
-width: 7px; 
-position: absolute; 
-background-color: #fa7bb4; 
-border-radius: 50%; 
-left: 19px; 
-top: 8px; 
-} 
+
+
 .dp { 
 height: 40px; 
 width: 40px; 
@@ -340,7 +328,7 @@ border-radius: 4px;
 
 /* CSS */
 .button-34 {
-    background: #5E5DF0;
+    background-color: #5E5DF0;
     border-radius: 999px;
     box-shadow: #5E5DF0 0 10px 20px -10px;
     box-sizing: border-box;
@@ -352,6 +340,7 @@ border-radius: 4px;
     padding: 8px 18px;
     user-select: none;
     border: 0;
+    position: relative;
   }
 
   .delete-button {
@@ -373,9 +362,15 @@ border-radius: 4px;
 
   h2 {
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 35px;
+    font-size: 27px; 
+    font-weight: 600; 
+    color: #4361ee; 
   }
 
   p{
     margin-bottom: 15px;
   }
+
+
+  

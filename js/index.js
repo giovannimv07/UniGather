@@ -5,6 +5,21 @@ menuicn.addEventListener("click", () => {
 	nav.classList.toggle("navclose"); 
 })
 
+function openForm() {
+    document.getElementById("myForm").style.display = "block";
+  }
+  
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+  }
+
+
+  function togglePopup() { 
+    const overlay = document.getElementById('popupOverlay'); 
+    overlay.classList.toggle('show'); 
+} 
+
+
  function addBox() {
             const boxContainer = document.querySelector('.box-container');
             const newBox = document.createElement('div');

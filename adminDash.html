@@ -1,143 +1,189 @@
-<!DOCTYPE html> 
-<html lang="en"> 
+<!DOCTYPE html>
+<html lang="en">
 
-<head> 
-	<meta charset="UTF-8"> 
-	<meta http-equiv="X-UA-Compatible"
-		content="IE=edge"> 
-	<meta name="viewport"
-		content="width=device-width, 
-				initial-scale=1.0"> 
-	<title>UniGather</title> 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link href="css/adminDash.css" 
-            rel="stylesheet" />
-	<link rel="stylesheet"
-		href="css/responsive.css"> 
-</head> 
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, 
+				initial-scale=1.0">
+	<title>UniGather</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link href="css/adminDash.css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/responsive.css">
+	<link rel="stylesheet" href="css/CreateEventForm.css">
+</head>
 
-<body> 
-	
+<body>
+
 	<!-- for header part -->
-	<header> 
+	<header>
 
-		<div class="logosec"> 
-			<div class="logo">UniGather</div> 
-			<i class="material-icons icn menuicn"
-				id="menuicn"
-				alt="menu-icon">menu
-            </i>
-		</div> 
+		<div class="logosec">
+			<div class="logo">UniGather</div>
+			<i class="material-icons icn menuicn" id="menuicn" alt="menu-icon">menu
+			</i>
+		</div>
 
-		<div class="searchbar"> 
-			<input type="text" placeholder="Search"> 
-			<div class="searchbtn"> 
-                <i class="icn srchicn material-icons"
-                    alt="search-icon">search
-                </i>
-			</div> 
-		</div> 
+		<div class="searchbar">
+			<input type="text" placeholder="Search">
+			<div class="searchbtn">
+				<i class="icn srchicn material-icons" alt="search-icon">search
+				</i>
+			</div>
+		</div>
 
-        <button class="button-34">
-            <i class="icn srchicn material-icons"
-                    alt="add-icon">add
-                </i>
-        </button>
+		<button class="button-34 btn-open-popup" onclick="togglePopup()">
+			Open Popup Form
+			<i class="icn srchicn material-icons" alt="add-icon">add
+			</i>
+		</button>
+
+		<div>
+			<div class="dp">
+				<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
+					class="dpicn" alt="dp">
+			</div>
+		</div>
+
+	</header>
+
+	<div class="main-container">
+		<div class="navcontainer">
+			<nav class="nav">
+				<div class="nav-upper-options">
+					<div class="nav-option option1">
+						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
+							class="nav-img" alt="dashboard">
+						<h3> Dashboard</h3>
+					</div>
+
+					<div class="nav-option option4">
+						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/6.png"
+							class="nav-img" alt="institution">
+						<h3> Institution</h3>
+					</div>
+
+					<div class="nav-option option5">
+						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+							class="nav-img" alt="blog">
+						<h3> Profile</h3>
+					</div>
+
+					<div class="nav-option option6">
+						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/4.png"
+							class="nav-img" alt="settings">
+						<h3> Settings</h3>
+					</div>
+
+					<div class="nav-option logout">
+						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/7.png"
+							class="nav-img" alt="logout">
+						<h3>Logout</h3>
+					</div>
+
+				</div>
+			</nav>
+		</div>
+		<div class="main">
+
+			<div class="searchbar2">
+				<input type="text" name="" id="" placeholder="Search">
+				<div class="searchbtn">
+				</div>
+			</div>
+			<h2>
+				Upcoming Events will go here :-)
+			</h2>
+			<div class="box-container">
+				<div id="popupOverlay" class="overlay-container">
+
+					<div class="popup-box">
+						<h2>Create Event Form</h2>
+
+						<form class="form-container">
+
+							<div class="row">
+								<div class="col">
+									<label class="form-label" for="name"> Event Name</label>
+									<input class="form-input" type="text" placeholder="Event name" id="eventName"
+										name="eventName" required>
+
+									<label class="form-label" for="eventTime"> Event Date & Start Time</label>
+									<input class="form-input" type="datetime-local" placeholder="Event name"
+										id="eventName" name="eventName" required>
+
+									<label class="form-label" for="eventType">Type of Event</label>
+									<select name="type" id="eventType">
+										<option value="select">Select a Category</option>
+										<option value="Social">Social</option>
+										<option value="Fundraising">Fundraising</option>
+										<option value="Tech Talk">Tech talk</option>
+										<option value="Career Readiness">Career Readiness</option>
+										<option value="Organization Meeting">Organization Meeting</option>
+										<option value="Other">Other</option>
+									</select>
 
 
-		<div class="message"> 
-			<div class="circle"></div> 
-			<img src= 
-"https://media.geeksforgeeks.org/wp-content/uploads/20221210183322/8.png"
-				class="icn"
-				alt=""> 
-			<div class="dp"> 
-			<img src= 
-"https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
-					class="dpicn"
-					alt="dp"> 
-			</div> 
-		</div> 
+								</div>
 
-	</header> 
 
-	<div class="main-container"> 
-		<div class="navcontainer"> 
-			<nav class="nav"> 
-				<div class="nav-upper-options"> 
-					<div class="nav-option option1"> 
-						<img src= 
-"https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
-							class="nav-img"
-							alt="dashboard"> 
-						<h3> Dashboard</h3> 
-					</div> 
+								<div class="col">
 
-					<div class="nav-option option4"> 
-						<img src= 
-"https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/6.png"
-							class="nav-img"
-							alt="institution"> 
-						<h3> Institution</h3> 
-					</div> 
+									<label class="form-label" for="location">Location:</label>
+									<input class="form-input" type="text" placeholder="Enter location" id="location"
+										name="location" required>
 
-					<div class="nav-option option5"> 
-						<img src= 
-"https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
-							class="nav-img"
-							alt="blog"> 
-						<h3> Profile</h3> 
-					</div> 
+									<label class="form-label" for="eventEndTime"> Event End Time</label>
+									<input class="form-input" type="time" placeholder=" " id="eventEndTime"
+										name="eventEndTime" required>
 
-					<div class="nav-option option6"> 
-						<img src= 
-"https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/4.png"
-							class="nav-img"
-							alt="settings"> 
-						<h3> Settings</h3> 
-					</div> 
+										<label class="form-label" for="RSO">Select an RSO</label>
+										<select name="rso" id="rso">
+											<option value="select">Select a Category</option>
+											<option value="Clubs">Clubs</option>
+											<option value="Fraternities">Fraternities</option>
+											<option value="Registered Student Organization">Registered Student Organization</option>
+										</select>
 
-					<div class="nav-option logout"> 
-						<img src= 
-"https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/7.png"
-							class="nav-img"
-							alt="logout"> 
-						<h3>Logout</h3> 
-					</div> 
 
-				</div> 
-			</nav> 
-		</div> 
-		<div class="main"> 
 
-			<div class="searchbar2"> 
-				<input type="text"
-					name=""
-					id=""
-					placeholder="Search"> 
-				<div class="searchbtn"> 
-				</div> 
-			</div> 
-            <h2 >
-                Upcoming Events will go here :-)
-            </h2>
-			<div class="box-container"> 
+								</div>
+							</div>
+							<div class="row">
+								<textarea name="message" style="width:500px; height:600px;"></textarea>
 
-				<div class="box box-child"> 
-					<div class="text"> 
-						<h3 class="event-heading">Event Name</h3> 
-						<p class="topic">University Name</p> 
-                        <p class="location">Location here UCF rd Orlando, FL</p>
-                        <p class="info">RSO hosting:Club Name</p> 
-                        <p class="info">Info of the event would go here blah blah blah blah</p>
-                        <button class="delete-button">Delete Event</button>
-					</div> 
-				</div> 
+							</div>
 
-			</div> 
 
-	</div> 
+							<button class="btn-submit" type="submit">
+								Submit
+							</button>
+						</form>
 
-	<script src="./js/index.js"></script> 
-</body> 
+						<button class="btn-close-popup" onclick="togglePopup()">
+							Close
+						</button>
+					</div>
+				</div>
+
+				<div class="box box-child">
+					<div class="text">
+						<h3 class="event-heading">Event Name</h3>
+						<p class="topic">University Name</p>
+						<p class="location">Location here UCF rd Orlando, FL</p>
+						<p class="info">Event Category</p>
+						<p class="info">Time, Date </p>
+						<p class="info">Contact Phone, contact email </p>
+						<p class="info">Info of the event would go here blah blah blah blah</p>
+						<button class="delete-button">Delete Event</button>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<script src="./js/index.js"></script>
+</body>
+
 </html>
