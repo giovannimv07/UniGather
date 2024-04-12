@@ -33,15 +33,13 @@
 		</div>
 
 		<button class="button-34 btn-open-popup" onclick="togglePopup()">
-			Open Popup Form
+			Create Event
 			<i class="icn srchicn material-icons" alt="add-icon">add
 			</i>
 		</button>
 
 		<div>
-			<div class="dp">
-				<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
-					class="dpicn" alt="dp">
+			<div> Admin Dashboard
 			</div>
 		</div>
 
@@ -57,22 +55,14 @@
 						<h3> Dashboard</h3>
 					</div>
 
-					<div class="nav-option option4">
-						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/6.png"
-							class="nav-img" alt="institution">
-						<h3> Institution</h3>
+					<div class="nav-option option">
+						<h3> RSOs</h3>
 					</div>
 
 					<div class="nav-option option5">
 						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
 							class="nav-img" alt="blog">
 						<h3> Profile</h3>
-					</div>
-
-					<div class="nav-option option6">
-						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/4.png"
-							class="nav-img" alt="settings">
-						<h3> Settings</h3>
 					</div>
 
 					<div class="nav-option logout">
@@ -92,7 +82,7 @@
 				</div>
 			</div>
 			<h2>
-				Upcoming Events will go here :-)
+				Upcoming Events will go here
 			</h2>
 			<div class="box-container">
 				<div id="popupOverlay" class="overlay-container">
@@ -104,13 +94,13 @@
 
 							<div class="row">
 								<div class="col">
-									<label class="form-label" for="name"> Event Name</label>
+									<label class="form-label" for="eventName"> Event Name</label>
 									<input class="form-input" type="text" placeholder="Event name" id="eventName"
 										name="eventName" required>
 
-									<label class="form-label" for="eventTime"> Event Date & Start Time</label>
-									<input class="form-input" type="datetime-local" placeholder="Event name"
-										id="eventName" name="eventName" required>
+									<label class="form-label" for="date"> Event Date</label>
+									<input class="form-input" type="date" placeholder=" "
+										id="eventDate" name="eventDate" required>
 
 									<label class="form-label" for="eventType">Type of Event</label>
 									<select name="type" id="eventType">
@@ -130,12 +120,17 @@
 								<div class="col">
 
 									<label class="form-label" for="location">Location:</label>
-									<input class="form-input" type="text" placeholder="Enter location" id="location"
-										name="location" required>
+									<input class="form-input" type="text" placeholder="Enter location" id="eventLocation"
+										name="eventLocation" required>
 
-									<label class="form-label" for="eventEndTime"> Event End Time</label>
-									<input class="form-input" type="time" placeholder=" " id="eventEndTime"
-										name="eventEndTime" required>
+									<label class="form-label" for="eventTime"> Event Time</label>
+									<input class="form-input" type="time" placeholder=" " id="eventTime"
+										name="eventTime" required>
+									
+										<label class="form-label" for="eventPhone"> Event Phone</label>
+									<input class="form-input" type="phone" placeholder=" " id="eventPhone"
+										name="eventPhone" required>
+
 
 										<label class="form-label" for="RSO">Select an RSO</label>
 										<select name="rso" id="rso">
@@ -149,15 +144,16 @@
 
 								</div>
 							</div>
-							<div class="row">
-								<textarea name="message" style="width:500px; height:600px;"></textarea>
+							<div class="">
+								<textarea id="description" type="text" style="width:300px; height:200px; max-height: max-content;"></textarea>
 
 							</div>
 
 
-							<button class="btn-submit" type="submit">
+							<button class="btn-submit" type="submit" onclick="addEvent();">
 								Submit
 							</button>
+							<span id="addEventResult"></span>
 						</form>
 
 						<button class="btn-close-popup" onclick="togglePopup()">
@@ -184,6 +180,7 @@
 		</div>
 
 		<script src="./js/index.js"></script>
+		<script src="./js/addEvent.js"></script>
 </body>
 
 </html>

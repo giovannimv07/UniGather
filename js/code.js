@@ -179,7 +179,7 @@ function doLogin() {
 				saveCookie();
 
 				loginResult.innerHTML = "Login successful!";
-				window.location.href = "home.html";
+				window.location.href = "adminDash.html";
 			} else {
 				loginResult.innerHTML = "Login failed!";
 			}
