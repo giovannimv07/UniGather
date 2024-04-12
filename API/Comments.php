@@ -5,6 +5,7 @@
     // $userId = $inData["userId"]
     // $commentId = $inData["commentId"]
     $eventName = $inData["eventName"];
+	$eventId = $inData["eventId"];
     $searchResults = "";
 	$searchCount = 0;
 
@@ -27,9 +28,9 @@
         JOIN
         users ON users.UserID = comment.UserID
         WHERE
-        events.Name LIKE ?";
+        events.Name LIKE ? AND events.EventID LIKE ?";
 		$stmt = $conn->prepare($sql);
-		$stmt->bind_param("s", $eventName);
+		$stmt->bind_param("si", $eventName, $eventId);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
