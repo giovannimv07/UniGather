@@ -7,6 +7,7 @@
     $eventName = $inData["eventName"];
 	$eventId = $inData["eventId"];
     $searchResults = "";
+	$eventInfo = "";
 	$searchCount = 0;
 
     $conn = new mysqli("localhost", "Admins", "COP4710", "unigather");
@@ -19,6 +20,11 @@
         $sql = "SELECT
         events.EventID,
         events.Name,
+		events.Description,
+		events.Time,
+		events.Date,
+		events.Location,
+		events.Phone,
         users.FirstName,
         comment.Text
         FROM
@@ -34,15 +40,16 @@
 		$stmt->execute();
 		$result = $stmt->get_result();
 
-
         while($row = $result->fetch_assoc())
         {
-            if ($searchCount > 0)
-			{
+            if ($searchCount > 0){
 				$searchResults .= ",";
 			}
+			if ($searchCount == 0){
+				$eventInfo = '{"eventId":' . $row["EventID"] . ',"eventName":"' . $row["Name"] . '","location":"' . $row["Location"] . '","time":"' . $row["Time"] . '","date":"' . $row["Date"] . '","description":"' . $row["Description"] . '","phone":"' . $row["Phone"] . '"}';
+			}
 			$searchCount++;
-			$searchResults .='{"eventId":' . $row["EventID"] . ',"name":"' . $row["Name"] . '","firstName":"' . $row["FirstName"] . '","text":"' . $row["Text"] . '"}';
+			$searchResults .='{"firstName":"' . $row["FirstName"] . '","text":"' . $row["Text"] . '"}';
         }
 
 		if($searchCount == 0){
@@ -51,7 +58,7 @@
 		}
 		else{
 			http_response_code(200);
-			returnWithInfo($searchResults);
+			returnWithInfo($searchResults, $eventInfo);
 		}
 
 		$stmt->close();
@@ -75,9 +82,9 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	function returnWithInfo($searchResults)
+	function returnWithInfo($searchResults, $eventInfo)
 	{
-		$retValue = '{"result":[' . $searchResults . '],"error":""}';
+		$retValue = '{"eventInfo":[' . $eventInfo . '] ,"comments":[' . $searchResults . '],"error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 	

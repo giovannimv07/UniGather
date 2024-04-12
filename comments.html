@@ -14,8 +14,6 @@
 			href="https://fonts.googleapis.com/icon?family=Material+Icons"
 		/>
 		<link href="css/comments.css" rel="stylesheet" />
-		<link rel="stylesheet" href="css/responsive.css" />
-		<link rel="stylesheet" href="css/CreateEventForm.css" />
 	</head>
 
 	<body>
@@ -103,19 +101,26 @@
 			</div>
 			<div class="main">
 				<!-- Event Information Section -->
-				<div class="event-info">
+				<!-- <div class="event-info">
 					<h2>Event Name</h2>
 					<p>Location: Event Location</p>
 					<p>Date: Event Date</p>
 					<p>Time: Event Time</p>
 					<p>Description: Event Description</p>
+				</div> -->
+				<div class="event-info">
+					<h2 id="eventName"></h2>
+					<p id="eventLocation"></p>
+					<p id="eventDate"></p>
+					<p id="eventTime"></p>
+					<p id="eventDescription"></p>
 				</div>
 
 				<!-- Comments Section -->
 				<div class="comments-section">
 					<h3>Comments</h3>
 					<!-- Individual Comment -->
-					<div class="comment">
+					<!-- <div class="comment">
 						<div class="comment-header">
 							<div class="comment-user">User Name</div>
 							<div class="comment-actions">
@@ -126,8 +131,7 @@
 							</div>
 						</div>
 						<div class="comment-content">Comment Content</div>
-					</div>
-					<!-- Add more comments here as needed -->
+					</div> -->
 				</div>
 
 				<!-- New Comment Form -->
@@ -147,6 +151,6 @@
 			</div>
 		</div>
 
-		<script src="./js/index.js"></script>
+		<script src="js/comments.js"></script>
 	</body>
 </html>

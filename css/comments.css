@@ -278,6 +278,11 @@ button[type="submit"]:hover {
 	justify-content: space-between;
 }
 
+.comment-actions {
+	display: flex;
+	gap: 10px;
+}
+
 .edit-comment-btn,
 .delete-comment-btn {
 	padding: 5px 10px;
@@ -290,6 +295,7 @@ button[type="submit"]:hover {
 .delete-comment-btn:hover {
 	background-color: #e0e0e0;
 }
+
 .comment-actions button {
 	font-size: 14px;
 }
