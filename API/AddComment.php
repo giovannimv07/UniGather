@@ -4,6 +4,7 @@
 	$eventId = $inData["eventId"];
     $userId = $inData["userId"];
     $text = $inData["text"];
+    $rate = 5;
     $conn = new mysqli("localhost", "Admins", "COP4710", "unigather");
 	if( $conn->connect_error )
 	{
@@ -13,7 +14,7 @@
 	{
         $sql = "INSERT into comment (EventID, UserID, Text, Rate) VALUES(?,?,?,?)";
 		$stmt = $conn->prepare($sql);
-		$stmt->bind_param("iisi", $eventId, $userId, $text, 5);
+		$stmt->bind_param("iisi", $eventId, $userId, $text, $rate);
 		$stmt->execute();
 		$result = $stmt->get_result();
 

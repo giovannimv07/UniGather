@@ -22,7 +22,7 @@
             $stmt->close();
             $conn->close();
             http_response_code(200);
-
+            returnWithError("");
         }
         else
         {
@@ -47,7 +47,7 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"eventId":0,"userId":0,"error":"' . $err . '"}';
+		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
