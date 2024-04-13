@@ -2,6 +2,7 @@ const urlBase = "http://localhost/UniGather/API";
 const extension = "php";
 
 let id = 1;
+let eventId = 1;
 let firstName = "";
 let lastName = "";
 let email = "";
@@ -11,6 +12,20 @@ document.addEventListener("DOMContentLoaded", function () {
 	document
 		.getElementById("add-comment-btn")
 		.addEventListener("click", addComment);
+	// Add event listener for edit comment buttons
+	document.querySelectorAll(".edit-comment-btn").forEach(function (btn) {
+		btn.addEventListener("click", function () {
+			let commentDiv = btn.closest(".comment");
+			let commentContent = commentDiv.querySelector(".comment-content");
+			let newText = prompt(
+				"Enter the edited comment:",
+				commentContent.textContent.trim()
+			);
+			if (newText !== null && newText.trim() !== "") {
+				editComment(id, eventId, newText);
+			}
+		});
+	});
 });
 
 // Load the comments to a specific event.
@@ -76,6 +91,9 @@ function loadComments() {
 					let deleteBtn = document.createElement("button");
 					deleteBtn.classList.add("delete-comment-btn");
 					deleteBtn.textContent = "Delete";
+					deleteBtn.addEventListener("click", function () {
+						deleteComment(comment.userId);
+					});
 
 					if (comment.userId === id) {
 						// Show edit and delete buttons only for the current user's comments
@@ -103,13 +121,74 @@ function loadComments() {
 	}
 }
 
+// Edit a comment
+function editComment(userId, eventId, newText) {
+	let tmp = {
+		userId: userId,
+		eventId: eventId,
+		text: newText,
+	};
+
+	let jsonPayload = JSON.stringify(tmp);
+	let url = urlBase + "/EditComment." + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				let jsonObject = JSON.parse(xhr.responseText);
+				if (jsonObject.error) {
+					console.log(jsonObject.error);
+					return;
+				}
+				// Reload comments after editing a comment
+				loadComments();
+			}
+		};
+		xhr.send(jsonPayload);
+	} catch (err) {
+		console.log(err.message);
+	}
+}
+
+// Delete a comment
+function deleteComment(userId) {
+	let tmp = {
+		userId: userId,
+		eventId: eventId,
+	};
+
+	let jsonPayload = JSON.stringify(tmp);
+	let url = urlBase + "/DeleteComment." + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				let jsonObject = JSON.parse(xhr.responseText);
+				if (jsonObject.error) {
+					console.log(jsonObject.error);
+					return;
+				}
+				// Reload comments after deleting a comment
+				loadComments();
+			}
+		};
+		xhr.send(jsonPayload);
+	} catch (err) {
+		console.log(err.message);
+	}
+}
+
 // Add a new comment
 function addComment() {
 	let commentText = document.getElementById("comment-content").value;
 
 	let tmp = {
-		eventId: 1,
-		userId: 32,
+		eventId: eventId,
+		userId: id,
 		text: commentText,
 	};
 
