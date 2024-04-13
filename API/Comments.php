@@ -26,6 +26,7 @@
 		events.Location,
 		events.Phone,
         users.FirstName,
+		users.UserID,
         comment.Text
         FROM
         events
@@ -49,7 +50,7 @@
 				$eventInfo = '{"eventId":' . $row["EventID"] . ',"eventName":"' . $row["Name"] . '","location":"' . $row["Location"] . '","time":"' . $row["Time"] . '","date":"' . $row["Date"] . '","description":"' . $row["Description"] . '","phone":"' . $row["Phone"] . '"}';
 			}
 			$searchCount++;
-			$searchResults .='{"firstName":"' . $row["FirstName"] . '","text":"' . $row["Text"] . '"}';
+			$searchResults .='{"userId":' . $row["UserID"] . ',"firstName":"' . $row["FirstName"] . '","text":"' . $row["Text"] . '"}';
         }
 
 		if($searchCount == 0){
