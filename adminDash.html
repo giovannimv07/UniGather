@@ -8,36 +8,28 @@
 				initial-scale=1.0">
 	<title>UniGather</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link href="css/adminDash.css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/adminDash.css">
 	<link rel="stylesheet" href="css/responsive.css">
 	<link rel="stylesheet" href="css/CreateEventForm.css">
 </head>
 
 <body>
-
 	<!-- for header part -->
 	<header>
-
 		<div class="logosec">
 			<div class="logo">UniGather</div>
 			<i class="material-icons icn menuicn" id="menuicn" alt="menu-icon">menu
 			</i>
 		</div>
-
 		<div class="searchbar">
 			<input type="text" placeholder="Search">
 			<div class="searchbtn">
-				<i class="icn srchicn material-icons" alt="search-icon">search
-				</i>
+				<i class="icn srchicn material-icons" alt="search-icon">search</i>
 			</div>
 		</div>
-
-		<button class="button-34 btn-open-popup" onclick="togglePopup()">
-			Create Event
-			<i class="icn srchicn material-icons" alt="add-icon">add
-			</i>
+		<button class="button-34 btn-open-popup" onclick="togglePopup()"> Create Event
+			<i class="icn srchicn material-icons" alt="add-icon">add </i>
 		</button>
-
 		<div>
 			<div> Admin Dashboard
 			</div>
@@ -47,6 +39,7 @@
 
 	<div class="main-container">
 		<div class="navcontainer">
+			<!-- Your navigation content -->
 			<nav class="nav">
 				<div class="nav-upper-options">
 					<div class="nav-option option1">
@@ -75,7 +68,7 @@
 			</nav>
 		</div>
 		<div class="main">
-
+			<!-- search bar content -->
 			<div class="searchbar2">
 				<input type="text" name="" id="" placeholder="Search">
 				<div class="searchbtn">
@@ -84,14 +77,16 @@
 			<h2>
 				Upcoming Events will go here
 			</h2>
-			<div class="box-container">
-				<div id="popupOverlay" class="overlay-container">
+			
 
+			 <!-- Popup form for creating events -->
+			<div class="box-container">
+
+				<!-- Your existing popup form -->
+				<div id="popupOverlay" class="overlay-container">
 					<div class="popup-box">
 						<h2>Create Event Form</h2>
-
-						<form class="form-container">
-
+						<form class="form-container" action method="post">
 							<div class="row">
 								<div class="col">
 									<label class="form-label" for="eventName"> Event Name</label>
@@ -99,8 +94,8 @@
 										name="eventName" required>
 
 									<label class="form-label" for="date"> Event Date</label>
-									<input class="form-input" type="date" placeholder=" "
-										id="eventDate" name="eventDate" required>
+									<input class="form-input" type="date" placeholder=" " id="eventDate"
+										name="eventDate" required>
 
 									<label class="form-label" for="eventType">Type of Event</label>
 									<select name="type" id="eventType">
@@ -113,39 +108,40 @@
 										<option value="Other">Other</option>
 									</select>
 
-
 								</div>
 
 
 								<div class="col">
 
 									<label class="form-label" for="location">Location:</label>
-									<input class="form-input" type="text" placeholder="Enter location" id="eventLocation"
-										name="eventLocation" required>
+									<input class="form-input" type="text" placeholder="Enter location"
+										id="eventLocation" name="eventLocation" required>
 
 									<label class="form-label" for="eventTime"> Event Time</label>
 									<input class="form-input" type="time" placeholder=" " id="eventTime"
 										name="eventTime" required>
-									
-										<label class="form-label" for="eventPhone"> Event Phone</label>
+
+									<label class="form-label" for="eventPhone"> Event Phone</label>
 									<input class="form-input" type="phone" placeholder=" " id="eventPhone"
 										name="eventPhone" required>
 
 
-										<label class="form-label" for="RSO">Select an RSO</label>
-										<select name="rso" id="rso">
-											<option value="select">Select a Category</option>
-											<option value="Clubs">Clubs</option>
-											<option value="Fraternities">Fraternities</option>
-											<option value="Registered Student Organization">Registered Student Organization</option>
-										</select>
+									<label class="form-label" for="RSO">Select an RSO</label>
+									<select name="rso" id="rso">
+										<option value="select">Select a Category</option>
+										<option value="Clubs">Clubs</option>
+										<option value="Fraternities">Fraternities</option>
+										<option value="Registered Student Organization">Registered Student Organization
+										</option>
+									</select>
 
 
 
 								</div>
 							</div>
 							<div class="">
-								<textarea id="description" type="text" style="width:300px; height:200px; max-height: max-content;"></textarea>
+								<textarea id="description" type="text"
+									style="width:300px; height:200px; max-height: max-content;"></textarea>
 
 							</div>
 
@@ -162,25 +158,18 @@
 					</div>
 				</div>
 
-				<div class="box box-child">
-					<div class="text">
-						<h3 class="event-heading">Event Name</h3>
-						<p class="topic">University Name</p>
-						<p class="location">Location here UCF rd Orlando, FL</p>
-						<p class="info">Event Category</p>
-						<p class="info">Time, Date </p>
-						<p class="info">Contact Phone, contact email </p>
-						<p class="info">Info of the event would go here blah blah blah blah</p>
-						<button class="delete-button">Delete Event</button>
-					</div>
-				</div>
-
 			</div>
 
 		</div>
 
 		<script src="./js/index.js"></script>
 		<script src="./js/addEvent.js"></script>
+		<script>
+			// Call loadEvents function when the page loads
+			window.onload = function() {
+			  loadEvents();
+			};
+		  </script>
 </body>
 
 </html>
