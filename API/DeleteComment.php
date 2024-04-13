@@ -14,7 +14,7 @@
 	{
         $sql = "DELETE FROM comment WHERE UserID=? AND EventID=?";
 		$stmt = $conn->prepare($sql);
-		$stmt->bind_param("ii", $eventId,$userId);
+		$stmt->bind_param("ii", $userId,$eventId);
 		$stmt->execute();
 		$result = $stmt->get_result();
 		if ($stmt->execute())
