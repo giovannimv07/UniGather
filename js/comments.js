@@ -2,12 +2,15 @@ const urlBase = "http://localhost/UniGather/API";
 const extension = "php";
 
 let id = 1;
-let fistName = "";
+let firstName = "";
 let lastName = "";
 let email = "";
 
 document.addEventListener("DOMContentLoaded", function () {
 	loadComments();
+	document
+		.getElementById("add-comment-btn")
+		.addEventListener("click", addComment);
 });
 
 // Load the comments to a specific event.
@@ -92,6 +95,40 @@ function loadComments() {
 
 					commentsSection.appendChild(commentDiv);
 				});
+			}
+		};
+		xhr.send(jsonPayload);
+	} catch (err) {
+		console.log(err.message);
+	}
+}
+
+// Add a new comment
+function addComment() {
+	let commentText = document.getElementById("comment-content").value;
+
+	let tmp = {
+		eventId: 1,
+		userId: 32,
+		text: commentText,
+	};
+
+	let jsonPayload = JSON.stringify(tmp);
+	let url = urlBase + "/AddComment." + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				let jsonObject = JSON.parse(xhr.responseText);
+				if (jsonObject.error) {
+					console.log(jsonObject.error);
+					return;
+				}
+				// Reload comments after adding a new comment
+				loadComments();
+				document.getElementById("comment-content").value = ""; // Clear the input field
 			}
 		};
 		xhr.send(jsonPayload);
