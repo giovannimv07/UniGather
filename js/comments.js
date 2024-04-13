@@ -12,21 +12,54 @@ document.addEventListener("DOMContentLoaded", function () {
 	document
 		.getElementById("add-comment-btn")
 		.addEventListener("click", addComment);
-	// Add event listener for edit comment buttons
-	document.querySelectorAll(".edit-comment-btn").forEach(function (btn) {
-		btn.addEventListener("click", function () {
-			let commentDiv = btn.closest(".comment");
-			let commentContent = commentDiv.querySelector(".comment-content");
-			let newText = prompt(
-				"Enter the edited comment:",
-				commentContent.textContent.trim()
-			);
-			if (newText !== null && newText.trim() !== "") {
-				editComment(id, eventId, newText);
+	// Event listener for edit buttons
+	document.addEventListener("click", function (event) {
+		if (event.target.classList.contains("edit-comment-btn")) {
+			let commentElement = event.target.closest(".comment");
+			if (commentElement) {
+				let commentContent =
+					commentElement.querySelector(".comment-content");
+				commentContent.contentEditable = true;
+				commentContent.focus();
+
+				// Save changes when editing is finished (e.g., blur or Enter key)
+				commentContent.addEventListener("blur", function () {
+					EditComment(eventId, id, commentContent.textContent.trim());
+				});
+				commentContent.addEventListener("keypress", function (event) {
+					if (event.key === "Enter") {
+						event.preventDefault(); // Prevent line break in contenteditable
+						EdiComment(
+							eventId,
+							id,
+							commentContent.textContent.trim()
+						);
+					}
+				});
 			}
-		});
+		}
 	});
 });
+
+function EditComment(eventId, userId, newText) {
+	let tmp = {
+		eventId: eventId,
+		userId: userId,
+		text: newText,
+	};
+	let jsonPayload = JSON.stringify(tmp);
+	let url = urlBase + "/EditComment." + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	xhr.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+			// Comment updated successfully, handle any UI updates if needed
+			console.log("Comment updated in the database");
+		}
+	};
+	xhr.send(jsonPayload);
+}
 
 // Load the comments to a specific event.
 function loadComments() {
