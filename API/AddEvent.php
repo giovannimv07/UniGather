@@ -17,14 +17,15 @@
 	else
 	{
 		// Check for duplicate Event
-		$sql = "SELECT EventID FROM events WHERE Location=? AND Time=? AND Date=?";
+		$sql = "SELECT EventID FROM events WHERE Name=?";
 		$stmt = $conn->prepare($sql);
-		$stmt->bind_param("sss", $location, $time, $date);
+		$stmt->bind_param("s", $eventName);
 		$stmt->execute();
 		$result = $stmt->get_result();
-		if ($result->num_rows == 0)
+		$rows = mysqli_num_rows($result);
+		if ($rows == 0)
 		{
-			// If no duplicate, add event to the table
+			// if no duplicate, add user to table.
 			$stmt = $conn->prepare("INSERT into events (Name, Location, Description, Time, Date, Phone) VALUES(?,?,?,?,?,?)");
 			$stmt->bind_param("sssssi", $eventName, $location, $description, $time, $date, $phone);
 			$stmt->execute();
@@ -34,7 +35,7 @@
 
 		} else {
 			http_response_code(409);
-			returnWithError("Event with the same location, time, and date already exists");
+			returnWithError("Event name taken");
 		}
 
 		$stmt->close();

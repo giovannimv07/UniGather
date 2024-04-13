@@ -27,82 +27,32 @@ function addEvent() {
   let xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  let eventSuccess = false;
 
-  xhr.onload = function () {
-    if (xhr.status == 409) {
-      document.getElementById("addEventResult").innerHTML =
-        "Event already exists";
-    } else if (xhr.status == 200) {
-      window.alert("Event created!");
-      createEventCard(tmp);
-      loadEvents();
-    }
-  };
-
-  xhr.onerror = function () {
-    document.getElementById("addEventResult").innerHTML = "Error occurred";
-  };
-
-  xhr.send(jsonPayload);
-}
-
-function createEventCard(jsonObject) {
-  const boxContainer = document.querySelector(".box-container");
-  const newBox = document.createElement("div");
-  newBox.classList.add("box", "box-child");
-  newBox.innerHTML = `
-    <div class="text">
-    <h2 class="event-heading">${jsonObject.Name}</h2> 
-    <p class="topic">${jsonObject.Location}</p> 
-    <p class="Date-and-Time">Date and Time: ${jsonObject.Date} ${jsonObject.Time}</p>
-    <p class="Phone">Phone: ${jsonObject.Phone}</p>
-    <p class="info">Info of the event: ${jsonObject.Description}</p>
-  </div>
-  <button class="delete-button">Delete Event</button>
-            `;
-  boxContainer.appendChild(newBox);
-  // Attach removeBox function to delete button inside the new box
-
-  return newBox;
-}
-
-function loadEvents() {
-  let tmp = {
-    search: "",
-    eventID: 1,
-  };
-
-  let jsonPayload = JSON.stringify(tmp);
-
-  let url = urlBase + "/SearchEvents." + extension;
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  xhr.onload = function () {
-    if (xhr.status == 200) {
-      let jsonObject = JSON.parse(xhr.responseText);
-      if (jsonObject.error) {
-        console.log(jsonObject.error);
+  try {
+    xhr.onreadystatechange = function () {
+      if (this.status == 409) {
+        document.getElementById("addEventResult").innerHTML =
+          "Event already exists";
         return;
       }
 
-      // Clear existing event cards
-      document.getElementById("eventContainer").innerHTML = "";
+      if (this.status == 200) {
+        if (!eventSuccess) {
+          window.alert("Event created!");
+          eventSuccess = true;
+        }
 
-      // Loop through the results and create event cards
-      for (let i = 0; i < jsonObject.results.length; i++) {
-        createEventCard(jsonObject.results[i]);
+        window.alert("Event created!");
+        console.log("Event has been added!");
+        showLogin();
       }
-    } else {
-      console.error("Failed to load events:", xhr.status, xhr.statusText);
-    }
-  };
+    };
 
-  xhr.onerror = function () {
-    console.error("Error occurred while loading events.");
-  };
-
-  xhr.send(jsonPayload);
+    xhr.send(jsonPayload);
+  } catch (err) {
+    document.getElementById("addEventResult").innerHTML = err.message;
+  }
 }
 
 function validAddEvent(eventName, location, description, time, date, phone) {
