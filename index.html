@@ -122,14 +122,32 @@
 								title="Must be between 8-32 characters and must contain at least one number and one special character"
 							/>
 							<input
-								type="checkbox"
-								class="check"
-								id="checkbox"
-								name="admin"
-								onchange="updateCheckboxValue()"
-							/><label for="check" class="check"
-								>Are you an Admin or RSO</label
+								type="radio"
+								class="radio"
+								id="superAdmin"
+								name="role"
+								value="SA"
+								required
+							/><label for="superAdmin" class="radio"
+								>Super Admin</label
 							>
+							<input
+								type="radio"
+								class="radio"
+								id="admin"
+								name="role"
+								value="A"
+								required
+							/><label for="admin" class="radio">Admin</label>
+							<input
+								type="radio"
+								class="radio"
+								id="student"
+								name="role"
+								value="S"
+								required
+							/><label for="student" class="radio">Student</label>
+
 							<button
 								type="button"
 								class="button"
