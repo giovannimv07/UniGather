@@ -5,7 +5,7 @@ let userId = 0;
 let firstName = "";
 let lastName = "";
 let email = "";
-let admin = 0;
+let admin = "S";
 
 function showSignup() {
 	const loginFields = document.getElementById("loginForm");
@@ -73,19 +73,22 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 });
 
-function updateCheckboxValue() {
-	var checkbox = document.getElementById("checkbox");
-
-	admin = checkbox.checked ? 1 : 0;
-
-	console.log("Checkbox value: " + admin);
-}
+// function getAdminLevel() {
+// 	if (document.getElementById("SuperAdmin") == "SuperAdmin") {
+// 		admin = "SA";
+// 	} else if (document.getElementById("Admin") == "Admin") {
+// 		admin = "A";
+// 	}
+// 	console.log("Admin level: " + admin);
+// }
 
 function doRegister() {
 	firstName = document.getElementById("firstName").value;
 	lastName = document.getElementById("lastName").value;
 	email = document.getElementById("email").value;
-	// admin = document.getElementById("checkbox");
+	admin = document.querySelector('input[name="role"]:checked').value;
+
+	console.log("Admin:", admin);
 
 	let username = document.getElementById("username").value;
 	let password = document.getElementById("password").value;
