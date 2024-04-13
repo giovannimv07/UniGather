@@ -73,22 +73,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 });
 
-// function getAdminLevel() {
-// 	if (document.getElementById("SuperAdmin") == "SuperAdmin") {
-// 		admin = "SA";
-// 	} else if (document.getElementById("Admin") == "Admin") {
-// 		admin = "A";
-// 	}
-// 	console.log("Admin level: " + admin);
-// }
-
 function doRegister() {
 	firstName = document.getElementById("firstName").value;
 	lastName = document.getElementById("lastName").value;
 	email = document.getElementById("email").value;
 	admin = document.querySelector('input[name="role"]:checked').value;
-
-	console.log("Admin:", admin);
 
 	let username = document.getElementById("username").value;
 	let password = document.getElementById("password").value;
