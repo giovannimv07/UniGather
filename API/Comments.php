@@ -27,7 +27,8 @@
 		events.Phone,
         users.FirstName,
 		users.UserID,
-        comment.Text
+        comment.Text,
+		comment.Rating
         FROM
         events
         JOIN
@@ -50,7 +51,7 @@
 				$eventInfo = '{"eventId":' . $row["EventID"] . ',"eventName":"' . $row["Name"] . '","location":"' . $row["Location"] . '","time":"' . $row["Time"] . '","date":"' . $row["Date"] . '","description":"' . $row["Description"] . '","phone":"' . $row["Phone"] . '"}';
 			}
 			$searchCount++;
-			$searchResults .='{"userId":' . $row["UserID"] . ',"firstName":"' . $row["FirstName"] . '","text":"' . $row["Text"] . '"}';
+			$searchResults .='{"userId":' . $row["UserID"] . ',"firstName":"' . $row["FirstName"] . '","text":"' . $row["Text"] . '","rating":' . $row["Rating"] . '}';
         }
 
 		if($searchCount == 0){

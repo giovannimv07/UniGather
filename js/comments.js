@@ -6,7 +6,6 @@ let eventId = 1;
 let firstName = "";
 let lastName = "";
 let email = "";
-
 document.addEventListener("DOMContentLoaded", function () {
 	loadComments();
 	document
@@ -113,6 +112,22 @@ function loadComments() {
 					let commentUser = document.createElement("div");
 					commentUser.classList.add("comment-user");
 					commentUser.textContent = comment.firstName;
+					let commentRating = document.createElement("div");
+					commentRating.classList.add("comment-rating");
+					let ratingLabel = document.createElement("span");
+					ratingLabel.classList.add("rating-label");
+					ratingLabel.textContent = "Rating: ";
+					let starsHTML = "";
+					for (let i = 1; i <= 5; i++) {
+						if (i <= comment.rating) {
+							starsHTML +=
+								'<i class="material-icons star-icon">star</i>';
+						} else {
+							starsHTML +=
+								'<i class="material-icons star-icon">star_border</i>';
+						}
+					}
+					commentRating.innerHTML = starsHTML;
 
 					let commentActions = document.createElement("div");
 					commentActions.classList.add("comment-actions");
@@ -135,6 +150,7 @@ function loadComments() {
 					}
 
 					commentHeader.appendChild(commentUser);
+					commentHeader.appendChild(commentRating);
 					commentHeader.appendChild(commentActions);
 
 					let commentContent = document.createElement("div");
@@ -218,11 +234,13 @@ function deleteComment(userId) {
 // Add a new comment
 function addComment() {
 	let commentText = document.getElementById("comment-content").value;
-
+	let rate = document.getElementById("comment-rating").value;
+	let rating = parseInt(rate);
 	let tmp = {
 		eventId: eventId,
 		userId: id,
 		text: commentText,
+		rating: rating,
 	};
 
 	let jsonPayload = JSON.stringify(tmp);

@@ -15,8 +15,6 @@
         $sql = "UPDATE comment SET Text=? WHERE UserID=? AND EventID=?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("sii", $text, $userId,$eventId);
-		$stmt->execute();
-		$result = $stmt->get_result();
 		if ($stmt->execute())
         {
             $stmt->close();
