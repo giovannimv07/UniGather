@@ -1,4 +1,4 @@
-const urlBase = "http://localhost/project/API";
+const urlBase = "http://localhost/UniGather/API";
 const extension = "php";
 
 let userId = 0;
@@ -164,7 +164,7 @@ function doLogin() {
 				}
 
 				// Store userId in session storage
-                sessionStorage.setItem("userId", userId);
+				sessionStorage.setItem("userId", userId);
 				console.log(userId);
 
 				firstName = jsonObject.firstName;
