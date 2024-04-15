@@ -21,17 +21,11 @@
 			<i class="material-icons icn menuicn" id="menuicn" alt="menu-icon">menu
 			</i>
 		</div>
-		<div class="searchbar">
-			<input type="text" placeholder="Search">
-			<div class="searchbtn">
-				<i class="icn srchicn material-icons" alt="search-icon">search</i>
-			</div>
-		</div>
-		<button class="button-34 btn-open-popup" onclick="togglePopup()"> Create Event
+		<button class="button-34 btn-open-popup" onclick="canUserCreateEvent()"> Create Event
 			<i class="icn srchicn material-icons" alt="add-icon">add </i>
 		</button>
 		<div>
-			<div> Admin Dashboard
+			<div class="logo" id="adminLevel">
 			</div>
 		</div>
 
@@ -39,7 +33,7 @@
 
 	<div class="main-container">
 		<div class="navcontainer">
-			<!-- Your navigation content -->
+			<!-- Your left side navigation content -->
 			<nav class="nav">
 				<div class="nav-upper-options">
 					<div class="nav-option option1">
@@ -69,17 +63,11 @@
 		</div>
 		<div class="main">
 			<!-- search bar content -->
-			<div class="searchbar2">
-				<input type="text" name="" id="" placeholder="Search">
-				<div class="searchbtn">
-				</div>
-			</div>
 			<h2>
-				Upcoming Events will go here
+				Upcoming events
 			</h2>
-			
 
-			 <!-- Popup form for creating events -->
+			<!-- Popup form for creating events -->
 			<div class="box-container">
 
 				<!-- Your existing popup form -->
@@ -161,15 +149,18 @@
 			</div>
 
 		</div>
-
 		<script src="./js/index.js"></script>
 		<script src="./js/addEvent.js"></script>
 		<script>
 			// Call loadEvents function when the page loads
-			window.onload = function() {
-			  loadEvents();
+			window.onload = function () {
+				loadEvents();
+				console.log(sessionStorage.getItem("userId"));
+				showLvl();
+
 			};
-		  </script>
+
+		</script>
 </body>
 
 </html>

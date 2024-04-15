@@ -51,12 +51,14 @@ function createEventCard(jsonObject) {
   const newBox = document.createElement("div");
   newBox.classList.add("box", "box-child");
   newBox.innerHTML = `
-    <div class="text">
-    <h2 class="event-heading">${jsonObject.Name}</h2> 
-    <p class="topic">${jsonObject.Location}</p> 
-    <p class="Date-and-Time">Date and Time: ${jsonObject.Date} ${jsonObject.Time}</p>
-    <p class="Phone">Phone: ${jsonObject.Phone}</p>
-    <p class="info">Info of the event: ${jsonObject.Description}</p>
+    <div>
+    <p class="event-heading">${jsonObject.eventName}</p> 
+    <p class="topic">${jsonObject.location}</p> 
+    <p class="Date">Date: ${jsonObject.date}</p>
+    <p class="Time">Time: ${jsonObject.time}</p>
+    <p class="Phone">Phone: ${jsonObject.phone}</p>
+    <p class="info">Info of the event: ${jsonObject.description}</p>
+    <div id =”my-map” style = “width:12px; height:12px;”></div>
   </div>
   <button class="delete-button">Delete Event</button>
             `;
@@ -87,11 +89,11 @@ function loadEvents() {
       }
 
       // Clear existing event cards
-      document.getElementById("eventContainer").innerHTML = "";
+      document.getElementsByClassName(".box-container").innerHTML = "";
 
       // Loop through the results and create event cards
-      for (let i = 0; i < jsonObject.results.length; i++) {
-        createEventCard(jsonObject.results[i]);
+      for (let i = 0; i < jsonObject.event.length; i++) {
+        createEventCard(jsonObject.event[i]);
       }
     } else {
       console.error("Failed to load events:", xhr.status, xhr.statusText);
@@ -102,6 +104,46 @@ function loadEvents() {
     console.error("Error occurred while loading events.");
   };
 
+  xhr.send(jsonPayload);
+}
+
+function canUserCreateEvent() {
+  let tmp = {
+    userId: sessionStorage.getItem("userId"),
+    admin: "",
+  };
+  let jsonPayload = JSON.stringify(tmp);
+
+  let url = urlBase + "/AdminLevel." + extension;
+
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  xhr.onload = function () {
+    //If user is found
+    if (xhr.status == 200) {
+      let jsonObject = JSON.parse(xhr.responseText);
+      if (jsonObject != null) {
+        let admin = jsonObject.admin;
+        if (admin == "A") {
+          // If user is admin, toggle the popup form
+          togglePopup();
+        } else {
+          // If user is not admin, show alert
+          alert("Only admins are allowed to create events.\n"+"You are not authorized to create events.");
+        }
+      } else {
+        // Handle error cases (e.g., server error, invalid response)
+        console.error(
+          "Error fetching admin level:",
+          xhr.status,
+          xhr.statusText
+        );
+      }
+    }
+  };
+
+  // Send the JSON payload to the server
   xhr.send(jsonPayload);
 }
 

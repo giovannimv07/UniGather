@@ -101,7 +101,6 @@ height: 30px;
 cursor: pointer; 
 } 
 
-.searchbar, 
 .message, 
 .logosec { 
 display: flex; 
@@ -109,33 +108,9 @@ align-items: center;
 justify-content: center; 
 } 
 
-.searchbar2 { 
-display: none; 
-} 
 
 .logosec { 
 gap: 60px; 
-} 
-
-.searchbar input { 
-width: 250px; 
-height: 42px; 
-border-radius: 50px 0 0 50px; 
-background-color: var(--background-color3); 
-padding: 0 20px; 
-font-size: 15px; 
-outline: none; 
-border: none; 
-} 
-.searchbtn { 
-width: 50px; 
-height: 42px; 
-display: flex; 
-align-items: center; 
-justify-content: center; 
-border-radius: 0px 50px 50px 0px; 
-background-color: var(--secondary-color); 
-cursor: pointer; 
 } 
 
 
@@ -251,7 +226,7 @@ border-left: 5px solid #010058af;
 background-color: var(--Border-color); 
 } 
 .box { 
-height: 500px; 
+height: 300px; 
 width: 400px; 
 border-radius: 20px; 
 box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); 
@@ -269,6 +244,8 @@ transform: scale(1.08);
 
 .box-child{ 
 background-color: var(--one-use-color); 
+color: white;
+font-size: small;
 } 
 
 .box img { 
@@ -290,7 +267,7 @@ letter-spacing: 1px;
 } 
 
 .info { 
-    font-size: 15px; 
+    font-size: small; 
     font-weight: 400; 
     letter-spacing: 1px; 
 } 
@@ -300,30 +277,7 @@ font-size: 30px;
 letter-spacing: 3px; 
 } 
 
-.report-container { 
-min-height: 300px; 
-max-width: 1200px; 
-margin: 70px auto 0px auto; 
-background-color: #ffffff; 
-border-radius: 30px; 
-box-shadow: 3px 3px 10px rgb(188, 188, 188); 
-padding: 0px 20px 20px 20px; 
-} 
-.report-header { 
-height: 80px; 
-width: 100%; 
-display: flex; 
-align-items: center; 
-justify-content: space-between; 
-padding: 20px 20px 10px 20px; 
-border-bottom: 2px solid rgba(0, 20, 151, 0.59); 
-} 
 
-.recent-Articles { 
-font-size: 30px; 
-font-weight: 600; 
-color: #0954a1; 
-} 
 
 .view { 
 height: 35px; 
@@ -336,11 +290,8 @@ border: none;
 cursor: pointer; 
 } 
 
-.report-body { 
-max-width: 1160px; 
-overflow-x: auto; 
-padding: 20px; 
-} 
+
+
 .report-topic-heading, 
 .item1 { 
 width: 1120px; 
@@ -407,19 +358,19 @@ border-radius: 4px;
     border: 0;
   }
 
-  
-
   h2 {
     text-align: center;
     margin-bottom: 35px;
     font-size: 27px; 
     font-weight: 600; 
-    color: #4361ee; 
+    color: var(--primary-color);
   }
+
 
   p{
     margin-bottom: 15px;
   }
+  
 
 
   

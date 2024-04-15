@@ -171,6 +171,10 @@ function doLogin() {
 					return;
 				}
 
+				// Store userId in session storage
+                sessionStorage.setItem("userId", userId);
+				console.log(userId);
+
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
 				email = jsonObject.email;
