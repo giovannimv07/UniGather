@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, 
+				initial-scale=1.0"
+		/>
+		<title>UniGather</title>
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		/>
+		<link href="css/university.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<!-- for header part -->
+		<header>
+			<div class="logosec">
+				<div class="logo">UniGather</div>
+				<i
+					class="material-icons icn menuicn"
+					id="menuicn"
+					alt="menu-icon"
+					>menu
+				</i>
+			</div>
+
+			<div class="searchbar">
+				<input type="text" placeholder="Search" />
+				<div class="searchbtn">
+					<i class="icn srchicn material-icons" alt="search-icon"
+						>search
+					</i>
+				</div>
+			</div>
+			<button class="button-34 btn-open-popup" onclick="">
+				Create RSO
+				<i class="icn srchicn material-icons" alt="add-icon">add </i>
+			</button>
+			<div>
+				<div class="dp">
+					<img
+						src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
+						class="dpicn"
+						alt="dp"
+					/>
+				</div>
+			</div>
+		</header>
+
+		<div class="main-container">
+			<div class="navcontainer">
+				<nav class="nav">
+					<div class="nav-upper-options">
+						<div class="nav-option option1">
+							<img
+								src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
+								class="nav-img"
+								alt="dashboard"
+							/>
+							<h3>Dashboard</h3>
+						</div>
+
+						<div class="nav-option option4">
+							<img
+								src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/6.png"
+								class="nav-img"
+								alt="institution"
+							/>
+							<h3>Institution</h3>
+						</div>
+
+						<div class="nav-option option5">
+							<img
+								src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+								class="nav-img"
+								alt="blog"
+							/>
+							<h3>Profile</h3>
+						</div>
+
+						<div class="nav-option option6">
+							<img
+								src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/4.png"
+								class="nav-img"
+								alt="settings"
+							/>
+							<h3>Settings</h3>
+						</div>
+
+						<div class="nav-option logout">
+							<img
+								src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/7.png"
+								class="nav-img"
+								alt="logout"
+							/>
+							<h3>Logout</h3>
+						</div>
+					</div>
+				</nav>
+			</div>
+			<div class="main">
+				<!-- University Information Section -->
+				<section class="university-info">
+					<h2>University Name</h2>
+					<p>Location: City, Country</p>
+					<p>
+						Description: Lorem ipsum dolor sit amet, consectetur
+						adipiscing elit. Nulla condimentum pulvinar felis, nec
+						tempor mi ullamcorper vel.
+					</p>
+					<p>Number of Students: 5000</p>
+				</section>
+
+				<!-- RSO Cards Section -->
+				<section class="rso-cards">
+					<!-- Card 1 -->
+					<div class="card">
+						<div class="card-header">
+							<h3>RSO Name 1</h3>
+							<p class="students">100 Students</p>
+						</div>
+						<div class="card-content">
+							<p>
+								Description: Lorem ipsum dolor sit amet,
+								consectetur adipiscing elit.
+							</p>
+						</div>
+						<div class="card-footer">
+							<button class="add-button" onclick="joinRSO(this)">
+								Join
+							</button>
+						</div>
+					</div>
+				</section>
+				<!-- Popup form for creating RSO -->
+				<div class="box-container">
+					<div id="popupOverlay" class="overlay-container">
+						<div class="popup-box">
+							<h2>Create RSO Form</h2>
+							<form class="form-container" action method="post">
+								<div class="col">
+									<label class="form-label" for="rsoName">
+										RSO Name</label
+									>
+									<input
+										class="form-input"
+										type="text"
+										placeholder="RSO name"
+										id="rsoName"
+										name="rsoName"
+										required
+									/>
+								</div>
+								<div class="row">
+									<div class="col">
+										<div>
+											<label
+												class="form-label"
+												for="member1"
+											>
+												Member 1</label
+											>
+											<input
+												class="form-input"
+												type="text"
+												placeholder="Name"
+												id="member1Name"
+												name="memberName"
+												required
+											/>
+											<input
+												class="form-input"
+												type="text"
+												placeholder="ID"
+												id="member1Id"
+												name="memberId"
+												style="width: 90px"
+												required
+											/>
+										</div>
+										<div>
+											<label
+												class="form-label"
+												for="member2"
+											>
+												Member 2</label
+											>
+											<input
+												class="form-input"
+												type="text"
+												placeholder="Name"
+												id="member2Name"
+												name="memberName"
+												required
+											/>
+											<input
+												class="form-input"
+												type="text"
+												placeholder="ID"
+												id="member2Id"
+												name="memberId"
+												style="width: 90px"
+												required
+											/>
+										</div>
+									</div>
+									<div class="col">
+										<div>
+											<label
+												class="form-label"
+												for="member3"
+											>
+												Member 3</label
+											>
+											<input
+												class="form-input"
+												type="text"
+												placeholder="Name"
+												id="member3Name"
+												name="memberName"
+												required
+											/>
+											<input
+												class="form-input"
+												type="text"
+												placeholder="ID"
+												id="member3Id"
+												name="memberId"
+												style="width: 90px"
+												required
+											/>
+										</div>
+										<div>
+											<label
+												class="form-label"
+												for="member4"
+											>
+												Member 4</label
+											>
+											<input
+												class="form-input"
+												type="text"
+												placeholder="Name"
+												id="member4Name"
+												name="memberName"
+												required
+											/>
+											<input
+												class="form-input"
+												type="text"
+												placeholder="ID"
+												id="member4Id"
+												name="memberId"
+												style="width: 90px"
+												required
+											/>
+										</div>
+									</div>
+								</div>
+								<div class="admin">
+									<label for="Admin"
+										>Choose Administrator:</label
+									>
+									<select id="Admin" name="admin" required>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+									</select>
+								</div>
+								<div class="description">
+									<label class="form-label" for="description">
+										Description</label
+									>
+									<textarea
+										id="description"
+										type="text"
+										style="
+											width: 400px;
+											height: 100px;
+											max-height: max-content;
+										"
+										required
+									></textarea>
+								</div>
+								<div class="btn-container">
+									<button
+										class="btn-submit"
+										type="submit"
+										onclick="createRSO()"
+									>
+										Submit
+									</button>
+									<button
+										class="btn-cancel"
+										type="button"
+										onclick="togglePopup()"
+									>
+										Cancel
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/university.js"></script>
+	</body>
+</html>
