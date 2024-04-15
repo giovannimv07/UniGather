@@ -5,7 +5,8 @@ function addEvent() {
   let eventName = document.getElementById("eventName").value;
   let location = document.getElementById("eventLocation").value;
   let description = document.getElementById("description").value;
-  let time = document.getElementById("eventTime").value;
+  let start = document.getElementById("start").value;
+  let end = document.getElementById("end").value;
   let date = document.getElementById("eventDate").value;
   let phone = document.getElementById("eventPhone").value;
 
@@ -15,7 +16,8 @@ function addEvent() {
     eventName: eventName,
     location: location,
     description: description,
-    time: time,
+    start: start,
+    end: end,
     date: date,
     phone: phone,
   };
@@ -50,12 +52,14 @@ function createEventCard(jsonObject) {
   const boxContainer = document.querySelector(".box-container");
   const newBox = document.createElement("div");
   newBox.classList.add("box", "box-child");
+  console.log(jsonObject.location);
   newBox.innerHTML = `
     <div>
     <p class="event-heading">${jsonObject.eventName}</p> 
-    <p class="topic">${jsonObject.location}</p> 
+    <p class="topic">Location: ${jsonObject.LocationName}</p> 
     <p class="Date">Date: ${jsonObject.date}</p>
-    <p class="Time">Time: ${jsonObject.time}</p>
+    <p class="Time">Start: ${jsonObject.start}</p>
+    <p class="Time">End: ${jsonObject.end}</p>
     <p class="Phone">Phone: ${jsonObject.phone}</p>
     <p class="info">Info of the event: ${jsonObject.description}</p>
     <div id =”my-map” style = “width:12px; height:12px;”></div>

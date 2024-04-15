@@ -12,7 +12,9 @@ session_start();
 	}
 	else
 	{
-        $sql = "SELECT * FROM events";
+        $sql = "SELECT e.EventID, e.Name AS eventName, e.LocID, e.Start, e.End, e.Date, e.Description, e.Phone, l.Name AS LocationName, l.Desc AS LocationDesc
+		FROM events e
+		INNER JOIN location l ON e.LocID = l.LocID";
 		$stmt = $conn->prepare($sql);
 		// $stmt->bind_param("si", $eventName, $eventId);
 		$stmt->execute();
@@ -24,7 +26,7 @@ session_start();
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .='{"eventId":' . $row["EventID"] . ',"eventName":"' . $row["Name"] . '","location":"' . $row["Location"] . '","time":"' . $row["Time"] . '","date":"' . $row["Date"] . '","description":"' . $row["Description"] . '","phone":"' . $row["Phone"] . '"}';
+			$searchResults .= '{"eventId":"' . $row["EventID"] . '","eventName":"' . $row["eventName"] . '","LocID":"' . $row["LocID"] . '","LocationName":"' . $row["LocationName"] . '","LocationDesc":"' . $row["LocationDesc"] . '","start":"' . $row["Start"] . '","end":"' . $row["End"] . '","date":"' . $row["Date"] . '","description":"' . $row["Description"] . '","phone":"' . $row["Phone"] . '"}';
         }
 
 		if($searchCount == 0){

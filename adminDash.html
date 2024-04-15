@@ -81,6 +81,10 @@
 									<input class="form-input" type="text" placeholder="Event name" id="eventName"
 										name="eventName" required>
 
+									<label class="form-label" for="eventTime"> Event Start Time</label>
+									<input class="form-input" type="time" placeholder=" " id="start" name="eventTime"
+										required>
+
 									<label class="form-label" for="date"> Event Date</label>
 									<input class="form-input" type="date" placeholder=" " id="eventDate"
 										name="eventDate" required>
@@ -105,9 +109,8 @@
 									<input class="form-input" type="text" placeholder="Enter location"
 										id="eventLocation" name="eventLocation" required>
 
-									<label class="form-label" for="eventTime"> Event Time</label>
-									<input class="form-input" type="time" placeholder=" " id="eventTime"
-										name="eventTime" required>
+									<label class="form-label"> Event End Time</label>
+									<input class="form-input" type="time" placeholder=" " id="end" required>
 
 									<label class="form-label" for="eventPhone"> Event Phone</label>
 									<input class="form-input" type="phone" placeholder=" " id="eventPhone"
@@ -129,20 +132,26 @@
 							</div>
 							<div class="">
 								<textarea id="description" type="text"
-									style="width:300px; height:200px; max-height: max-content;"></textarea>
+									style="width:486px; height:101px; margin-top: 5px;"></textarea>
 
 							</div>
+							<div class="row" style="grid-template-columns: auto auto;"> 
 
+								<div class="col">
+									<button class="btn-submit" type="submit" onclick="addEvent();">
+										Submit
+									</button>
+									<span id="addEventResult"></span>
+								</div>
+								<div class="col">
+									<button class="btn-close-popup" onclick="togglePopup()">
+										Close
+									</button>
+								</div>
 
-							<button class="btn-submit" type="submit" onclick="addEvent();">
-								Submit
-							</button>
-							<span id="addEventResult"></span>
 						</form>
 
-						<button class="btn-close-popup" onclick="togglePopup()">
-							Close
-						</button>
+						</div>
 					</div>
 				</div>
 
