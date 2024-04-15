@@ -163,6 +163,10 @@ function doLogin() {
 					return;
 				}
 
+				// Store userId in session storage
+                sessionStorage.setItem("userId", userId);
+				console.log(userId);
+
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
 				email = jsonObject.email;
@@ -171,7 +175,7 @@ function doLogin() {
 				saveCookie();
 
 				loginResult.innerHTML = "Login successful!";
-				window.location.href = "home.html";
+				window.location.href = "adminDash.html";
 			} else {
 				loginResult.innerHTML = "Login failed!";
 			}

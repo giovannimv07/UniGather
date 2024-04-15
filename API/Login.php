@@ -1,5 +1,7 @@
 
 <?php
+	session_start(); 
+
 	$inData = getRequestInfo();
 	
 	$userId = 0;
@@ -22,6 +24,7 @@
 
 		if( $row = $result->fetch_assoc()  )
 		{
+			$_SESSION["userId"] = $row['UserID'];
 			http_response_code(200);
 			returnWithInfo( $row['UserID'], $row['FirstName'], $row['LastName'], $row['Email'], $row['Level']);
 		}
