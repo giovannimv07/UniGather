@@ -37,6 +37,10 @@
 					</i>
 				</div>
 			</div>
+			<button class="button-34 btn-open-popup" onclick="">
+				Create RSO
+				<i class="icn srchicn material-icons" alt="add-icon">add </i>
+			</button>
 			<div>
 				<div class="dp">
 					<img
@@ -127,32 +131,186 @@
 							</p>
 						</div>
 						<div class="card-footer">
-							<button class="add-button">Join</button>
+							<button class="add-button" onclick="joinRSO(this)">
+								Join
+							</button>
 						</div>
 					</div>
-
-					<!-- Card 2 -->
-					<div class="card">
-						<div class="card-header">
-							<h3>RSO Name 2</h3>
-							<p class="students">75 Students</p>
-						</div>
-						<div class="card-content">
-							<p>
-								Description: Lorem ipsum dolor sit amet,
-								consectetur adipiscing elit.
-							</p>
-						</div>
-						<div class="card-footer">
-							<button class="add-button">Join</button>
-						</div>
-					</div>
-
-					<!-- Add more cards as needed -->
 				</section>
+				<!-- Popup form for creating RSO -->
+				<div class="box-container">
+					<div id="popupOverlay" class="overlay-container">
+						<div class="popup-box">
+							<h2>Create RSO Form</h2>
+							<form class="form-container" action method="post">
+								<div class="col">
+									<label class="form-label" for="rsoName">
+										RSO Name</label
+									>
+									<input
+										class="form-input"
+										type="text"
+										placeholder="RSO name"
+										id="rsoName"
+										name="rsoName"
+										required
+									/>
+								</div>
+								<div class="row">
+									<div class="col">
+										<div>
+											<label
+												class="form-label"
+												for="member1"
+											>
+												Member 1</label
+											>
+											<input
+												class="form-input"
+												type="text"
+												placeholder="Name"
+												id="member1Name"
+												name="memberName"
+												required
+											/>
+											<input
+												class="form-input"
+												type="text"
+												placeholder="ID"
+												id="member1Id"
+												name="memberId"
+												style="width: 90px"
+												required
+											/>
+										</div>
+										<div>
+											<label
+												class="form-label"
+												for="member2"
+											>
+												Member 2</label
+											>
+											<input
+												class="form-input"
+												type="text"
+												placeholder="Name"
+												id="member2Name"
+												name="memberName"
+												required
+											/>
+											<input
+												class="form-input"
+												type="text"
+												placeholder="ID"
+												id="member2Id"
+												name="memberId"
+												style="width: 90px"
+												required
+											/>
+										</div>
+									</div>
+									<div class="col">
+										<div>
+											<label
+												class="form-label"
+												for="member3"
+											>
+												Member 3</label
+											>
+											<input
+												class="form-input"
+												type="text"
+												placeholder="Name"
+												id="member3Name"
+												name="memberName"
+												required
+											/>
+											<input
+												class="form-input"
+												type="text"
+												placeholder="ID"
+												id="member3Id"
+												name="memberId"
+												style="width: 90px"
+												required
+											/>
+										</div>
+										<div>
+											<label
+												class="form-label"
+												for="member4"
+											>
+												Member 4</label
+											>
+											<input
+												class="form-input"
+												type="text"
+												placeholder="Name"
+												id="member4Name"
+												name="memberName"
+												required
+											/>
+											<input
+												class="form-input"
+												type="text"
+												placeholder="ID"
+												id="member4Id"
+												name="memberId"
+												style="width: 90px"
+												required
+											/>
+										</div>
+									</div>
+								</div>
+								<div class="admin">
+									<label for="Admin"
+										>Choose Administrator:</label
+									>
+									<select id="Admin" name="admin" required>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+									</select>
+								</div>
+								<div class="description">
+									<label class="form-label" for="description">
+										Description</label
+									>
+									<textarea
+										id="description"
+										type="text"
+										style="
+											width: 400px;
+											height: 100px;
+											max-height: max-content;
+										"
+										required
+									></textarea>
+								</div>
+								<div class="btn-container">
+									<button
+										class="btn-submit"
+										type="submit"
+										onclick="createRSO()"
+									>
+										Submit
+									</button>
+									<button
+										class="btn-cancel"
+										type="button"
+										onclick="togglePopup()"
+									>
+										Cancel
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
-		<script src="./js/index.js"></script>
+		<script src="js/university.js"></script>
 	</body>
 </html>
