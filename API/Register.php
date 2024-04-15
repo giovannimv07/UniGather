@@ -26,7 +26,7 @@
 		{
 			// if no duplicate, add user to table.
 			$stmt = $conn->prepare("INSERT into users (FirstName, LastName, Email, Login, Password, Level) VALUES(?,?,?,?,?,?)");
-			$stmt->bind_param("sssssi", $firstName, $lastName, $email, $username, $password, $admin);
+			$stmt->bind_param("ssssss", $firstName, $lastName, $email, $username, $password, $admin);
 			$stmt->execute();
 			$id = $conn->insert_id;
 			returnWithError("");
