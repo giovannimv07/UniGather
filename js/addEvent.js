@@ -1,6 +1,3 @@
-const urlBase = "http://localhost/UniGather/API";
-const extension = "php";
-
 function addEvent() {
 	let eventName = document.getElementById("eventName").value;
 	let location = document.getElementById("eventLocation").value;
