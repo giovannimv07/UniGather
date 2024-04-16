@@ -1,162 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, 
+				initial-scale=1.0"
+		/>
+		<title>UniGather</title>
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		/>
+		<link rel="stylesheet" href="css/adminDash.css" />
+		<link rel="stylesheet" href="css/responsive.css" />
+		<link rel="stylesheet" href="css/CreateEventForm.css" />
+	</head>
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, 
-				initial-scale=1.0">
-	<title>UniGather</title>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="css/adminDash.css">
-	<link rel="stylesheet" href="css/responsive.css">
-	<link rel="stylesheet" href="css/CreateEventForm.css">
-</head>
-
-<body>
-	<!-- for header part -->
-	<header>
-		<div class="logosec">
-			<div class="logo">UniGather</div>
-			<i class="material-icons icn menuicn" id="menuicn" alt="menu-icon">menu
-			</i>
-		</div>
-		<button class="button-34 btn-open-popup" onclick="canUserCreateEvent()"> Create Event
-			<i class="icn srchicn material-icons" alt="add-icon">add </i>
-		</button>
-		<div>
-			<div class="logo" id="adminLevel">
+	<body>
+		<!-- for header part -->
+		<header>
+			<div class="logosec">
+				<div class="logo">UniGather</div>
+				<i
+					class="material-icons icn menuicn"
+					id="menuicn"
+					alt="menu-icon"
+					>menu
+				</i>
 			</div>
-		</div>
+			<button
+				class="button-34 btn-open-popup"
+				onclick="canUserCreateEvent()"
+			>
+				Create Event
+				<i class="icn srchicn material-icons" alt="add-icon">add </i>
+			</button>
+			<div>
+				<div class="logo" id="adminLevel"></div>
+			</div>
+		</header>
 
-	</header>
+		<div class="main-container">
+			<div class="navcontainer">
+				<!-- Your left side navigation content -->
+				<nav class="nav">
+					<div class="nav-upper-options">
+						<div class="nav-option option1">
+							<img
+								src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
+								class="nav-img"
+								alt="dashboard"
+							/>
+							<!-- <h3>Dashboard</h3> -->
+							<a href="adminDash.html"><h3>Dashboard</h3></a>
+						</div>
 
-	<div class="main-container">
-		<div class="navcontainer">
-			<!-- Your left side navigation content -->
-			<nav class="nav">
-				<div class="nav-upper-options">
-					<div class="nav-option option1">
-						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
-							class="nav-img" alt="dashboard">
-						<h3> Dashboard</h3>
+						<div class="nav-option option">
+							<!-- <h3>RSOs</h3> -->
+							<a href="university.html"><h3>RSOs</h3></a>
+						</div>
+
+						<div class="nav-option option5">
+							<img
+								src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+								class="nav-img"
+								alt="blog"
+							/>
+							<h3>Profile</h3>
+						</div>
+
+						<div class="nav-option logout">
+							<img
+								src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/7.png"
+								class="nav-img"
+								alt="logout"
+							/>
+							<a href="index.html"><h3>Logout</h3></a>
+						</div>
 					</div>
+				</nav>
+			</div>
+			<div class="main">
+				<!-- search bar content -->
+				<h2>Upcoming events</h2>
 
-					<div class="nav-option option">
-						<h3> RSOs</h3>
-					</div>
+				<!-- Popup form for creating events -->
+				<div class="box-container">
+					<!-- Your existing popup form -->
+					<div id="popupOverlay" class="overlay-container">
+						<div class="popup-box">
+							<h2>Create Event Form</h2>
+							<form class="form-container" action method="post">
+								<div class="row">
+									<div class="col">
+										<label
+											class="form-label"
+											for="eventName"
+										>
+											Event Name</label
+										>
+										<input
+											class="form-input"
+											type="text"
+											placeholder="Event name"
+											id="eventName"
+											name="eventName"
+											required
+										/>
 
-					<div class="nav-option option5">
-						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
-							class="nav-img" alt="blog">
-						<h3> Profile</h3>
-					</div>
+										<label
+											class="form-label"
+											for="eventTime"
+										>
+											Event Start Time</label
+										>
+										<input
+											class="form-input"
+											type="time"
+											placeholder=" "
+											id="start"
+											name="eventTime"
+											required
+										/>
 
-					<div class="nav-option logout">
-						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/7.png"
-							class="nav-img" alt="logout">
-						<h3>Logout</h3>
-					</div>
+										<label class="form-label" for="date">
+											Event Date</label
+										>
+										<input
+											class="form-input"
+											type="date"
+											placeholder=" "
+											id="eventDate"
+											name="eventDate"
+											required
+										/>
 
-				</div>
-			</nav>
-		</div>
-		<div class="main">
-			<!-- search bar content -->
-			<h2>
-				Upcoming events
-			</h2>
+										<label
+											class="form-label"
+											for="eventType"
+											>Type of Event</label
+										>
+										<select name="type" id="eventType">
+											<option value="select">
+												Select a Category
+											</option>
+											<option value="Social">
+												Social
+											</option>
+											<option value="Fundraising">
+												Fundraising
+											</option>
+											<option value="Tech Talk">
+												Tech talk
+											</option>
+											<option value="Career Readiness">
+												Career Readiness
+											</option>
+											<option
+												value="Organization Meeting"
+											>
+												Organization Meeting
+											</option>
+											<option value="Other">Other</option>
+										</select>
+									</div>
 
-			<!-- Popup form for creating events -->
-			<div class="box-container">
+									<div class="col">
+										<label class="form-label" for="location"
+											>Location:</label
+										>
+										<input
+											class="form-input"
+											type="text"
+											placeholder="Enter location"
+											id="eventLocation"
+											name="eventLocation"
+											required
+										/>
 
-				<!-- Your existing popup form -->
-				<div id="popupOverlay" class="overlay-container">
-					<div class="popup-box">
-						<h2>Create Event Form</h2>
-						<form class="form-container" action method="post">
-							<div class="row">
-								<div class="col">
-									<label class="form-label" for="eventName"> Event Name</label>
-									<input class="form-input" type="text" placeholder="Event name" id="eventName"
-										name="eventName" required>
+										<label class="form-label">
+											Event End Time</label
+										>
+										<input
+											class="form-input"
+											type="time"
+											placeholder=" "
+											id="end"
+											required
+										/>
 
-									<label class="form-label" for="eventTime"> Event Start Time</label>
-									<input class="form-input" type="time" placeholder=" " id="start" name="eventTime"
-										required>
+										<label
+											class="form-label"
+											for="eventPhone"
+										>
+											Event Phone</label
+										>
+										<input
+											class="form-input"
+											type="phone"
+											placeholder=" "
+											id="eventPhone"
+											name="eventPhone"
+											required
+										/>
 
-									<label class="form-label" for="date"> Event Date</label>
-									<input class="form-input" type="date" placeholder=" " id="eventDate"
-										name="eventDate" required>
-
-									<label class="form-label" for="eventType">Type of Event</label>
-									<select name="type" id="eventType">
-										<option value="select">Select a Category</option>
-										<option value="Social">Social</option>
-										<option value="Fundraising">Fundraising</option>
-										<option value="Tech Talk">Tech talk</option>
-										<option value="Career Readiness">Career Readiness</option>
-										<option value="Organization Meeting">Organization Meeting</option>
-										<option value="Other">Other</option>
-									</select>
-
+										<label class="form-label" for="RSO"
+											>Select an RSO</label
+										>
+										<select name="rso" id="rso">
+											<option value="select">
+												Select a Category
+											</option>
+											<option value="Clubs">Clubs</option>
+											<option value="Fraternities">
+												Fraternities
+											</option>
+											<option
+												value="Registered Student Organization"
+											>
+												Registered Student Organization
+											</option>
+										</select>
+									</div>
 								</div>
-
-
-								<div class="col">
-
-									<label class="form-label" for="location">Location:</label>
-									<input class="form-input" type="text" placeholder="Enter location"
-										id="eventLocation" name="eventLocation" required>
-
-									<label class="form-label"> Event End Time</label>
-									<input class="form-input" type="time" placeholder=" " id="end" required>
-
-									<label class="form-label" for="eventPhone"> Event Phone</label>
-									<input class="form-input" type="phone" placeholder=" " id="eventPhone"
-										name="eventPhone" required>
-
-
-									<label class="form-label" for="RSO">Select an RSO</label>
-									<select name="rso" id="rso">
-										<option value="select">Select a Category</option>
-										<option value="Clubs">Clubs</option>
-										<option value="Fraternities">Fraternities</option>
-										<option value="Registered Student Organization">Registered Student Organization
-										</option>
-									</select>
-
-
-
+								<div class="">
+									<textarea
+										id="description"
+										type="text"
+										style="
+											width: 486px;
+											height: 101px;
+											margin-top: 5px;
+										"
+									></textarea>
 								</div>
-							</div>
-							<div class="">
-								<textarea id="description" type="text"
-									style="width:486px; height:101px; margin-top: 5px;"></textarea>
-
-							</div>
-							<div class="row" style="grid-template-columns: auto auto;"> 
-
-								<div class="col">
-									<button class="btn-submit" type="submit" onclick="addEvent();">
-										Submit
-									</button>
-									<span id="addEventResult"></span>
+								<div
+									class="row"
+									style="grid-template-columns: auto auto"
+								>
+									<div class="col">
+										<button
+											class="btn-submit"
+											type="submit"
+											onclick="addEvent();"
+										>
+											Submit
+										</button>
+										<span id="addEventResult"></span>
+									</div>
+									<div class="col">
+										<button
+											class="btn-close-popup"
+											onclick="togglePopup()"
+										>
+											Close
+										</button>
+									</div>
 								</div>
-								<div class="col">
-									<button class="btn-close-popup" onclick="togglePopup()">
-										Close
-									</button>
-								</div>
-
-						</form>
-
+							</form>
 						</div>
 					</div>
 				</div>
-
 			</div>
-
 		</div>
 		<script src="./js/index.js"></script>
 		<script src="./js/addEvent.js"></script>
@@ -166,10 +273,7 @@
 				loadEvents();
 				console.log(sessionStorage.getItem("userId"));
 				showLvl();
-
 			};
-
 		</script>
-</body>
-
+	</body>
 </html>
