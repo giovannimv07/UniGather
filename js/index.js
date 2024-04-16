@@ -130,9 +130,10 @@ function showLvl() {
 		admin: "",
 	};
 	let jsonPayload = JSON.stringify(tmp);
+	url = urlBase + "/AdminLevel." + extension;
 
 	let xhr = new XMLHttpRequest();
-	xhr.open("POST", "http://localhost/project/API/AdminLevel.php", true);
+	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	xhr.onload = function () {
 		//If user is found
