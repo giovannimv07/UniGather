@@ -1,61 +1,89 @@
 <?php
-	$inData = getRequestInfo();
-	
-	$eventName = $inData["eventName"];
-	$location = $inData["location"];
-    $description = $inData["description"];
-	$time = $inData["time"];
-	$date = $inData["date"];
-	$phone = $inData["phone"];
+// Retrieve request data
+$inData = getRequestInfo();
 
+// Extract inputs
+$name = $inData["Name"];
+$locID = $inData["LocID"];
+$description = $inData["Description"];
+$start = $inData["Start"];
+$end = $inData["End"];
+$date = $inData["Date"];
+$phone = $inData["Phone"];
 
-	$conn = new mysqli("localhost", "Admins", "COP4710", "unigather");
-	if ($conn->connect_error) 
-	{
-		returnWithError( $conn->connect_error );
-	} 
-	else
-	{
-		// Check for duplicate Event
-		$sql = "SELECT EventID FROM events WHERE Location=? AND Time=? AND Date=?";
-		$stmt = $conn->prepare($sql);
-		$stmt->bind_param("sss", $location, $time, $date);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		if ($result->num_rows == 0)
-		{
-			// If no duplicate, add event to the table
-			$stmt = $conn->prepare("INSERT into events (Name, Location, Description, Time, Date, Phone) VALUES(?,?,?,?,?,?)");
-			$stmt->bind_param("sssssi", $eventName, $location, $description, $time, $date, $phone);
-			$stmt->execute();
-			$id = $conn->insert_id;
-			returnWithError("");
-			http_response_code(200);
+// Database connection parameters
+$servername = "localhost";
+$username = "Admins";
+$password = "COP4710";
+$dbname = "unigather";
 
-		} else {
-			http_response_code(409);
-			returnWithError("Event with the same location, time, and date already exists");
-		}
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-		$stmt->close();
-		$conn->close();
-	}
+// Check connection
+if ($conn->connect_error) {
+    returnWithError("Connection failed: " . $conn->connect_error);
+} else {
+    // Check if the LocID exists in the location table
+    $checkLocationSql = "SELECT LocID FROM location WHERE LocID = ?";
+    $stmt = $conn->prepare($checkLocationSql);
+    $stmt->bind_param("i", $locID); // Assuming LocID is an integer (i) based on your table definition
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-	function getRequestInfo()
-	{
-		return json_decode(file_get_contents('php://input'), true);
-	}
+    if ($result->num_rows > 0) {
+        // LocID exists in location table, check for event conflicts
+        $conflictCheckSql = "SELECT * FROM events WHERE LocID = ? AND Date = ? AND ((End > ? AND ? > Start) OR (End > ? AND Start > ?))";
+        $stmt = $conn->prepare($conflictCheckSql);
+        $stmt->bind_param("isssss", $locID, $date, $end, $start, $end, $start);
+        $stmt->execute();
+        $conflictResult = $stmt->get_result();
+        if ($conflictResult->num_rows > 0) {
+            // Conflict detected, return error
+            http_response_code(409);
+            returnWithError("Event conflicts with existing event");
+        } else {
+            // No conflicts, proceed with inserting the new event
+            $insertEventSql = "INSERT INTO events (Name, LocID, Description, Start, End, Date, Phone) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($insertEventSql);
+            $stmt->bind_param("sisssss", $name, $locID, $description, $start, $end, $date, $phone);
 
-	function sendResultInfoAsJson( $obj )
-	{
-		header('Content-type: application/json');
-		echo $obj;
-	}
-	
-	function returnWithError( $err )
-	{
-		$retValue = '{"error":"' . $err . '"}';
-		sendResultInfoAsJson( $retValue );
-	}
-	
+            if ($stmt->execute()) {
+                // Event inserted successfully
+                $newEventID = $stmt->insert_id;
+                http_response_code(200);
+                sendResultInfoAsJson(array("EventID" => $newEventID));
+            } else {
+                http_response_code(409);
+                // Failed to insert event
+                returnWithError("Failed to insert event");
+            }
+        }
+    } else {
+        http_response_code(409);
+        // LocID does not exist in location table
+        returnWithError("LocID does not exist in location table");
+    }
+
+    // Close statement and connection
+    $stmt->close();
+    $conn->close();
+}
+
+function getRequestInfo()
+{
+    return json_decode(file_get_contents('php://input'), true);
+}
+
+function sendResultInfoAsJson($obj)
+{
+    header('Content-type: application/json');
+    echo json_encode($obj);
+}
+
+function returnWithError($err)
+{
+    $response = array("error" => $err);
+    sendResultInfoAsJson($response);
+}
 ?>
