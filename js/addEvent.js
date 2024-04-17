@@ -3,7 +3,7 @@ const extension = "php";
 
 function addEvent() {
   let eventName = document.getElementById("eventName").value;
-  let location = document.getElementById("eventLocation").value;
+ // let location = document.getElementById("lblresult").value;
   let description = document.getElementById("description").value;
   let start = document.getElementById("start").value;
   let end = document.getElementById("end").value;
@@ -12,9 +12,13 @@ function addEvent() {
 
   document.getElementById("addEventResult").innerHTML = "";
 
+  let locID = checkForLocation();
+
+//create function to check thru location php
+  // check through AddLocation.php and use the returned userID for location to be added into Events.LocID
   let tmp = {
     eventName: eventName,
-    location: location,
+    locID: locID,
     description: description,
     start: start,
     end: end,
@@ -52,7 +56,7 @@ function createEventCard(jsonObject) {
   const boxContainer = document.querySelector(".box-container");
   const newBox = document.createElement("div");
   newBox.classList.add("box", "box-child");
-  console.log(jsonObject.location);
+console.log(jsonObject);
   newBox.innerHTML = `
     <div>
     <p class="event-heading">${jsonObject.eventName}</p> 

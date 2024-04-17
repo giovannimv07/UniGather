@@ -7,6 +7,30 @@
 	<meta name="viewport" content="width=device-width, 
 				initial-scale=1.0">
 	<title>UniGather</title>
+	<style>
+		#map {
+			display: none;
+		}
+	</style>
+	<script defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjZXbU_Rru4ki0nsCRatmGCauMO4kTLlg&libraries=places"></script>
+
+	</script>
+	<script type="text/javascript">
+		// Define the initMap function to initialize the map
+		function initMap() {
+			// Set the initial location (e.g., New York City)
+			var initialLocation = { lat: 40.7128, lng: -74.0060 };
+
+			// Create a new map centered at the initial location
+			var map = new google.maps.Map(document.getElementById('map'), {
+				center: initialLocation,
+				zoom: 12 // Adjust the zoom level as needed
+			});
+
+			// Add any additional map functionality here (markers, info windows, etc.)
+		}
+	</script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="css/adminDash.css">
 	<link rel="stylesheet" href="css/responsive.css">
@@ -69,6 +93,7 @@
 
 			<!-- Popup form for creating events -->
 			<div class="box-container">
+				<div id="map"></div>
 
 				<!-- Your existing popup form -->
 				<div id="popupOverlay" class="overlay-container">
@@ -104,10 +129,10 @@
 
 
 								<div class="col">
-
 									<label class="form-label" for="location">Location:</label>
-									<input class="form-input" type="text" placeholder="Enter location"
-										id="eventLocation" name="eventLocation" required>
+									<input type="text" id="eventLocation" placeholder="Enter the address" /><br /><br />
+									<label id="lblresult"></label>
+
 
 									<label class="form-label"> Event End Time</label>
 									<input class="form-input" type="time" placeholder=" " id="end" required>
@@ -135,7 +160,7 @@
 									style="width:486px; height:101px; margin-top: 5px;"></textarea>
 
 							</div>
-							<div class="row" style="grid-template-columns: auto auto;"> 
+							<div class="row" style="grid-template-columns: auto auto;">
 
 								<div class="col">
 									<button class="btn-submit" type="submit" onclick="addEvent();">
@@ -151,25 +176,63 @@
 
 						</form>
 
-						</div>
 					</div>
-				</div>
 
+				</div>
 			</div>
 
 		</div>
-		<script src="./js/index.js"></script>
-		<script src="./js/addEvent.js"></script>
-		<script>
-			// Call loadEvents function when the page loads
-			window.onload = function () {
-				loadEvents();
-				console.log(sessionStorage.getItem("userId"));
-				showLvl();
 
-			};
+	</div>
+	<script src="./js/index.js"></script>
+	<script src="./js/addEvent.js"></script>
+	<script src="./js/location.js"></script>
+	<script>
+		// Call loadEvents function when the page loads
+		window.onload = function () {
+			loadEvents();
+			console.log(sessionStorage.getItem("userId"));
+			showLvl();
 
-		</script>
+		};
+	</script>
+	<script>
+		// Event listener for DOMContentLoaded
+		let locationData = null;
+
+		document.addEventListener('DOMContentLoaded', function () {
+			// Retrieve the autocomplete input element
+			var autocomplete = new google.maps.places.Autocomplete(document.getElementById("eventLocation"));
+
+			// Event listener for place_changed event
+			google.maps.event.addListener(autocomplete, 'place_changed', function () {
+				initMap();
+				var place = autocomplete.getPlace();
+				if (place.geometry) {
+					// Update the global locationData variable with the location details
+					locationData = {
+						name: place.formatted_address,
+						latitude: place.geometry.location.lat(),
+						longitude: place.geometry.location.lng()
+					};
+
+					// Display latitude and longitude
+					var locationInfo = "<b>Location:</b> " + place.formatted_address + "<br/>";
+					locationInfo += "Latitude: " + place.geometry.location.lat() + "<br/>";
+					locationInfo += "Longitude: " + place.geometry.location.lng();
+					document.getElementById("lblresult").innerHTML = locationInfo;
+
+					// Log latitude and longitude to the console
+					console.log("Latitude:", place.geometry.location.lat());
+					console.log("Longitude:", place.geometry.location.lng());
+					console.log(locationData);
+					checkForLocation();
+				} else {
+					document.getElementById("lblresult").innerHTML = "No location details available for this place.";
+				}
+			});
+		});
+	</script>
 </body>
 
 </html>
