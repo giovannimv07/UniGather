@@ -1,6 +1,6 @@
 .btn-open-popup {
-    padding: 12px 24px;
-    font-size: 18px;
+    padding: 10px 20px;
+    font-size: 16px;
     color: #fff;
     border-radius: 8px;
     transition: background-color 0.3s ease;
@@ -74,7 +74,7 @@
 }
 
 .btn-submit {
-    background-color: green;
+    background-color: #4361ee;
     color: #fff;
 }
 
@@ -85,7 +85,7 @@
 
 .btn-submit:hover,
 .btn-close-popup:hover {
-    background-color: #4caf50;
+    background-color: #e74c3c;
 }
 
 /* Keyframes for fadeInUp animation */

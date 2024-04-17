@@ -161,6 +161,7 @@ background-color: #9e9e9eb2;
     align-items: center; 
     flex-wrap: wrap; 
     gap: 50px; 
+    font-size: small;
 } 
 .nav { 
 min-height: 91vh; 
@@ -226,7 +227,7 @@ border-left: 5px solid #010058af;
 background-color: var(--Border-color); 
 } 
 .box { 
-height: 300px; 
+height: 425px; 
 width: 400px; 
 border-radius: 20px; 
 box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751); 
@@ -243,7 +244,7 @@ transform: scale(1.08);
 } 
 
 .box-child{ 
-background-color: var(--one-use-color); 
+background-color: #5a75f0 ; 
 color: white;
 font-size: small;
 } 
