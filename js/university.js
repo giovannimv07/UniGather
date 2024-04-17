@@ -2,7 +2,7 @@ const urlBase = "http://localhost/UniGather/API";
 const extension = "php";
 
 let id = sessionStorage.getItem("userId");
-let uni = 1;
+let uni = sessionStorage.getItem("uniId");
 let firstName = "";
 let lastName = "";
 let email = "";

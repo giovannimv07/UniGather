@@ -127,6 +127,7 @@ function doRegister() {
 
 function doLogin() {
 	userId = 0;
+	uniId = 0;
 	firstName = "";
 	lastName = "";
 	admin = 0;
@@ -156,6 +157,7 @@ function doLogin() {
 			} else if (this.readyState == 4 && this.status == 200) {
 				let jsonObject = JSON.parse(xhr.responseText);
 				userId = jsonObject.userId;
+				uniId = jsonObject.uniId;
 
 				if (userId < 1) {
 					loginResult.innerHTML =
@@ -165,7 +167,9 @@ function doLogin() {
 
 				// Store userId in session storage
 				sessionStorage.setItem("userId", userId);
+				sessionStorage.setItem("uniId", uniId);
 				console.log(userId);
+				console.log(uniId);
 
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
