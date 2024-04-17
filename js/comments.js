@@ -89,7 +89,11 @@ function loadComments() {
 				).textContent = "Date: " + jsonObject.eventInfo[0].date;
 				document.querySelector(
 					".event-info p:nth-child(4)"
-				).textContent = "Time: " + jsonObject.eventInfo[0].time;
+				).textContent =
+					"Time: " +
+					jsonObject.eventInfo[0].start +
+					" - " +
+					jsonObject.eventInfo[0].end;
 				document.querySelector(
 					".event-info p:nth-child(5)"
 				).textContent =

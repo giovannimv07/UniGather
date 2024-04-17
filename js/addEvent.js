@@ -81,8 +81,7 @@ function createEventCard(jsonObject) {
 
 function loadEvents() {
 	let tmp = {
-		search: "",
-		eventID: 1,
+		userId: sessionStorage.getItem("userID"),
 	};
 
 	let jsonPayload = JSON.stringify(tmp);

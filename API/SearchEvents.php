@@ -1,6 +1,7 @@
 <?php
-session_start(); 
+// session_start(); 
 	$inData = getRequestInfo();
+	$userId = $inData['userId'];
     $searchResults = "";
 	$searchCount = 0;
 
@@ -11,11 +12,25 @@ session_start();
 	}
 	else
 	{
-        $sql = "SELECT e.EventID, e.Name AS eventName, e.LocID, e.Start, e.End, e.Date, e.Description, e.Phone, l.LocName AS LocationName
+        $sql = "SELECT e.EventID, e.Name, e.LocID, loc.LocName, e.Description, e.Start, e.End, e.Date, e.Phone
 		FROM events e
-		INNER JOIN location l ON e.LocID = l.LocID";
+		INNER JOIN public p ON e.EventID = p.EventID
+		INNER JOIN location loc ON e.LocID = loc.LocID
+		UNION
+		SELECT e.EventID, e.Name, e.LocID, loc.LocName, e.Description, e.Start, e.End, e.Date, e.Phone
+		FROM events e
+		INNER JOIN private pr ON e.EventID = pr.EventID
+		INNER JOIN unimembers um ON pr.UniID = um.UniID AND um.UserID = ?
+		INNER JOIN location loc ON e.LocID = loc.LocID
+		UNION
+		SELECT e.EventID, e.Name, e.LocID, loc.LocName, e.Description, e.Start, e.End, e.Date, e.Phone
+		FROM events e
+		INNER JOIN rosevent r ON e.EventID = r.EventID
+		INNER JOIN rsomembers rm ON r.RSOID = rm.RSOID AND rm.UserID = ?
+		INNER JOIN location loc ON e.LocID = loc.LocID		
+		";
 		$stmt = $conn->prepare($sql);
-		// $stmt->bind_param("si", $eventName, $eventId);
+		$stmt->bind_param("ii", $userId, $userId);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
@@ -25,7 +40,7 @@ session_start();
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '{"eventId":"' . $row["EventID"] . '","eventName":"' . $row["eventName"] . '","LocID":"' . $row["LocID"] . '","LocationName":"' . $row["LocationName"] . '","start":"' . $row["Start"] . '","end":"' . $row["End"] . '","date":"' . $row["Date"] . '","description":"' . $row["Description"] . '","phone":"' . $row["Phone"] . '"}';
+			$searchResults .= '{"eventId":"' . $row["EventID"] . '","eventName":"' . $row["Name"] . '","LocID":"' . $row["LocID"] . '","LocationName":"' . $row["LocName"] . '","start":"' . $row["Start"] . '","end":"' . $row["End"] . '","date":"' . $row["Date"] . '","description":"' . $row["Description"] . '","phone":"' . $row["Phone"] . '"}';
         }
 
 		if($searchCount == 0){

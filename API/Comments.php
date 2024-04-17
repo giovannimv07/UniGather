@@ -21,8 +21,9 @@
 		events.EventID,
 		events.Name,
 		events.Description,
-		events.Time,
 		events.Date,
+		events.Start,
+		events.End,
 		events.LocID,
 		events.Phone,
 		users.FirstName,
@@ -52,7 +53,7 @@
 				$searchResults .= ",";
 			}
 			if ($searchCount == 0){
-				$eventInfo = '{"eventId":' . $row["EventID"] . ',"eventName":"' . $row["Name"] . '","location":"' . $row["LocName"] . '","time":"' . $row["Time"] . '","date":"' . $row["Date"] . '","description":"' . $row["Description"] . '","phone":"' . $row["Phone"] . '"}';
+				$eventInfo = '{"eventId":' . $row["EventID"] . ',"eventName":"' . $row["Name"] . '","location":"' . $row["LocName"] . '","date":"' . $row["Date"] . '","start":"' . $row["Start"] . '","end":"' . $row["End"] . '","description":"' . $row["Description"] . '","phone":"' . $row["Phone"] . '"}';
 			}
 			$searchCount++;
 			if(!($row['UserID'] == null)){

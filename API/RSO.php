@@ -30,18 +30,21 @@
         // university.UniID LIKE ? ";
 		$sql = "SELECT
 		university.Name,
-		university.Location,
 		university.Description,
 		university.UniStudents,
+		location.LocID,
+		location.LocName,
 		rso.RSOID,
 		rso.RSOName,
 		rso.RSODescription,
 		rso.Members
-		FROM
+	FROM
 		university
-		LEFT JOIN
+	LEFT JOIN
 		rso ON university.UniID = rso.UniID
-		WHERE
+	LEFT JOIN
+		location ON university.LocID = location.LocID
+	WHERE
 		university.UniID LIKE ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("i", $uniId);
@@ -54,7 +57,7 @@
 				$searchResults .= ",";
 			}
 			if ($searchCount == 0){
-				$uniInfo = '{"name":"' . $row["Name"] . '","location":"' . $row["Location"] . '","description":"' . $row["Description"] . '","students":' . $row["UniStudents"] . '}';
+				$uniInfo = '{"name":"' . $row["Name"] . '","location":"' . $row["LocName"] . '","description":"' . $row["Description"] . '","students":' . $row["UniStudents"] . '}';
 			}
 			$searchCount++;
 			if(!($row['RSOID'] == null)){
