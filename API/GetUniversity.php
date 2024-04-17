@@ -11,7 +11,7 @@
 	}
 	else
 	{
-        $sql = "SELECT Name FROM university";
+        $sql = "SELECT Name, UniID FROM university";
 		$stmt = $conn->prepare($sql);
 		// $stmt->bind_param("si", $eventName, $eventId);
 		$stmt->execute();
@@ -23,7 +23,7 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .='{"name":"' . $row["Name"] . '"}';
+			$searchResults .='{"uniId":' . $row["UniID"] . ',"name":"' . $row["Name"] . '"}';
         }
 
 		if($searchCount == 0){

@@ -78,6 +78,7 @@ function doRegister() {
 	lastName = document.getElementById("lastName").value;
 	email = document.getElementById("email").value;
 	admin = document.querySelector('input[name="role"]:checked').value;
+	let uni = parseInt(document.getElementById("university").value);
 
 	let username = document.getElementById("username").value;
 	let password = document.getElementById("password").value;
@@ -91,6 +92,7 @@ function doRegister() {
 		username: username,
 		password: password,
 		admin: admin,
+		uni: uni,
 	};
 
 	let jsonPayload = JSON.stringify(tmp);
@@ -260,7 +262,7 @@ function fetchUniversities() {
 			// Add fetched universities to the select dropdown
 			jsonObject.university.forEach(function (uni) {
 				let option = document.createElement("option");
-				option.value = uni.name;
+				option.value = uni.uniId;
 				option.textContent = uni.name;
 				university.appendChild(option);
 			});

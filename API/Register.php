@@ -7,6 +7,7 @@
 	$username = $inData["username"];
 	$password = $inData["password"];
 	$admin = $inData["admin"];
+	$uni = $inData["uni"];
 
 	$conn = new mysqli("localhost", "Admins", "COP4710", "unigather");
 	if ($conn->connect_error) 
@@ -27,18 +28,33 @@
 			// if no duplicate, add user to table.
 			$stmt = $conn->prepare("INSERT into users (FirstName, LastName, Email, Login, Password, Level) VALUES(?,?,?,?,?,?)");
 			$stmt->bind_param("ssssss", $firstName, $lastName, $email, $username, $password, $admin);
-			$stmt->execute();
-			$id = $conn->insert_id;
-			returnWithError("");
-			http_response_code(200);
-
+			if($stmt->execute()){
+				$id = $conn->insert_id;
+				$stmt = $conn->prepare("INSERT into unimembers (UniID, UserID) VALUES(?,?)");
+				$stmt->bind_param("ii", $uni, $id);
+				if($stmt->execute()){
+					$stmt->close();
+					$conn->close();
+					returnWithError("");
+					http_response_code(200);
+				}else{
+					$stmt->close();
+					$conn->close();
+					http_response_code(409);
+					returnWithError("Could not add user to uni");
+				}
+			}else{
+				$stmt->close();
+				$conn->close();
+				http_response_code(409);
+				returnWithError("Could not create user");
+			}
 		} else {
+			$stmt->close();
+			$conn->close();
 			http_response_code(409);
 			returnWithError("Username taken");
 		}
-
-		$stmt->close();
-		$conn->close();
 	}
 
 	function getRequestInfo()
