@@ -56,55 +56,36 @@
 		<div>
 			<div class="logo" id="adminLevel">
 			</div>
-			<button
-				class="button-34 btn-open-popup"
-				onclick="canUserCreateEvent()"
-			>
-				Create Event
-				<i class="icn srchicn material-icons" alt="add-icon">add </i>
-			</button>
-			<div>
-				<div class="logo" id="adminLevel"></div>
-			</div>
-		</header>
+		</div>
 
-		<div class="main-container">
-			<div class="navcontainer">
-				<!-- Your left side navigation content -->
-				<nav class="nav">
-					<div class="nav-upper-options">
-						<div class="nav-option option1">
-							<img
-								src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
-								class="nav-img"
-								alt="dashboard"
-							/>
-							<!-- <h3>Dashboard</h3> -->
-							<a href="adminDash.html"><h3>Dashboard</h3></a>
-						</div>
+	</header>
 
-						<div class="nav-option option">
+	<div class="main-container">
+		<div class="navcontainer">
+			<!-- Your left side navigation content -->
+			<nav class="nav">
+				<div class="nav-upper-options">
+					<div class="nav-option option1">
+						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
+							class="nav-img" alt="dashboard">
+						<h3> Dashboard</h3>
+					</div>
+
+					<div class="nav-option option">
 							<!-- <h3>RSOs</h3> -->
 							<a href="university.html"><h3>RSOs</h3></a>
-						</div>
+					</div>
 
-						<div class="nav-option option5">
-							<img
-								src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
-								class="nav-img"
-								alt="blog"
-							/>
-							<h3>Profile</h3>
-						</div>
+					<div class="nav-option option5">
+						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+							class="nav-img" alt="blog">
+						<h3> Profile</h3>
+					</div>
 
-						<div class="nav-option logout">
-							<img
-								src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/7.png"
-								class="nav-img"
-								alt="logout"
-							/>
-							<a href="index.html"><h3>Logout</h3></a>
-						</div>
+					<div class="nav-option logout">
+						<img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/7.png"
+							class="nav-img" alt="logout">
+						<h3>Logout</h3>
 					</div>
 
 				</div>
@@ -193,28 +174,10 @@
 									</button>
 									<span id="addEventResult"></span>
 								</div>
-								<div
-									class="row"
-									style="grid-template-columns: auto auto"
-								>
-									<div class="col">
-										<button
-											class="btn-submit"
-											type="submit"
-											onclick="addEvent();"
-										>
-											Submit
-										</button>
-										<span id="addEventResult"></span>
-									</div>
-									<div class="col">
-										<button
-											class="btn-close-popup"
-											onclick="togglePopup()"
-										>
-											Close
-										</button>
-									</div>
+								<div class="col">
+									<button class="btn-close-popup" onclick="togglePopup()">
+										Close
+									</button>
 								</div>
 
 						</form>
@@ -271,6 +234,7 @@
 					</form>
 
 				</div>
+
 			</div>
 		</div>
 
@@ -326,4 +290,3 @@
 </body>
 
 </html>
-
