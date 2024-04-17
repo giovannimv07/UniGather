@@ -4,7 +4,7 @@
     // $eventId = $inData["eventId"]
     // $userId = $inData["userId"]
     // $commentId = $inData["commentId"]
-    $eventName = $inData["eventName"];
+    // $eventName = $inData["eventName"];
 	$eventId = $inData["eventId"];
     $searchResults = "";
 	$eventInfo = "";
@@ -23,22 +23,26 @@
 		events.Description,
 		events.Time,
 		events.Date,
-		events.Location,
+		events.LocID,
 		events.Phone,
         users.FirstName,
 		users.UserID,
         comment.Text,
-		comment.Rating
+		comment.Rating,
+        location.LocName
         FROM
         events
         JOIN
         comment ON events.EventID = comment.EventID
         JOIN
         users ON users.UserID = comment.UserID
+        JOIN
+        location ON location.LocID = events.LocID
         WHERE
-        events.Name LIKE ? AND events.EventID LIKE ?";
+        events.EventID LIKE ?";
 		$stmt = $conn->prepare($sql);
-		$stmt->bind_param("si", $eventName, $eventId);
+		// $stmt->bind_param("si", $eventName, $eventId);
+		$stmt->bind_param("i",$eventId);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
@@ -48,7 +52,7 @@
 				$searchResults .= ",";
 			}
 			if ($searchCount == 0){
-				$eventInfo = '{"eventId":' . $row["EventID"] . ',"eventName":"' . $row["Name"] . '","location":"' . $row["Location"] . '","time":"' . $row["Time"] . '","date":"' . $row["Date"] . '","description":"' . $row["Description"] . '","phone":"' . $row["Phone"] . '"}';
+				$eventInfo = '{"eventId":' . $row["EventID"] . ',"eventName":"' . $row["Name"] . '","location":"' . $row["LocName"] . '","time":"' . $row["Time"] . '","date":"' . $row["Date"] . '","description":"' . $row["Description"] . '","phone":"' . $row["Phone"] . '"}';
 			}
 			$searchCount++;
 			$searchResults .='{"userId":' . $row["UserID"] . ',"firstName":"' . $row["FirstName"] . '","text":"' . $row["Text"] . '","rating":' . $row["Rating"] . '}';
