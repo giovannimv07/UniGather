@@ -1,6 +1,3 @@
-const urlBase = "http://localhost/project/API";
-const extension = "php";
-
 function addEvent() {
   let eventName = document.getElementById("eventName").value;
  // let location = document.getElementById("lblresult").value;
@@ -69,169 +66,174 @@ function createEventCard(jsonObject) {
   </div>
   <button class="delete-button">Delete Event</button>
             `;
-  boxContainer.appendChild(newBox);
-  // Attach removeBox function to delete button inside the new box
+	boxContainer.appendChild(newBox);
+	// Attach removeBox function to delete button inside the new box
 
-  return newBox;
+	return newBox;
 }
 
 function loadEvents() {
-  let tmp = {
-    search: "",
-    eventID: 1,
-  };
+	let tmp = {
+		search: "",
+		eventID: 1,
+	};
 
-  let jsonPayload = JSON.stringify(tmp);
+	let jsonPayload = JSON.stringify(tmp);
 
-  let url = urlBase + "/SearchEvents." + extension;
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  xhr.onload = function () {
-    if (xhr.status == 200) {
-      let jsonObject = JSON.parse(xhr.responseText);
-      if (jsonObject.error) {
-        console.log(jsonObject.error);
-        return;
-      }
+	let url = urlBase + "/SearchEvents." + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	xhr.onload = function () {
+		if (xhr.status == 200) {
+			let jsonObject = JSON.parse(xhr.responseText);
+			if (jsonObject.error) {
+				console.log(jsonObject.error);
+				return;
+			}
 
-      // Clear existing event cards
-      document.getElementsByClassName(".box-container").innerHTML = "";
+			// Clear existing event cards
+			document.getElementsByClassName(".box-container").innerHTML = "";
 
-      // Loop through the results and create event cards
-      for (let i = 0; i < jsonObject.event.length; i++) {
-        createEventCard(jsonObject.event[i]);
-      }
-    } else {
-      console.error("Failed to load events:", xhr.status, xhr.statusText);
-    }
-  };
+			// Loop through the results and create event cards
+			for (let i = 0; i < jsonObject.event.length; i++) {
+				createEventCard(jsonObject.event[i]);
+			}
+		} else {
+			console.error("Failed to load events:", xhr.status, xhr.statusText);
+		}
+	};
 
-  xhr.onerror = function () {
-    console.error("Error occurred while loading events.");
-  };
+	xhr.onerror = function () {
+		console.error("Error occurred while loading events.");
+	};
 
-  xhr.send(jsonPayload);
+	xhr.send(jsonPayload);
 }
 
 function canUserCreateEvent() {
-  let tmp = {
-    userId: sessionStorage.getItem("userId"),
-    admin: "",
-  };
-  let jsonPayload = JSON.stringify(tmp);
+	let tmp = {
+		userId: sessionStorage.getItem("userId"),
+		admin: "",
+	};
+	let jsonPayload = JSON.stringify(tmp);
 
-  let url = urlBase + "/AdminLevel." + extension;
+	let url = urlBase + "/AdminLevel." + extension;
 
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  xhr.onload = function () {
-    //If user is found
-    if (xhr.status == 200) {
-      let jsonObject = JSON.parse(xhr.responseText);
-      if (jsonObject != null) {
-        let admin = jsonObject.admin;
-        if (admin == "A") {
-          // If user is admin, toggle the popup form
-          togglePopup();
-        } else {
-          // If user is not admin, show alert
-          alert("Only admins are allowed to create events.\n"+"You are not authorized to create events.");
-        }
-      } else {
-        // Handle error cases (e.g., server error, invalid response)
-        console.error(
-          "Error fetching admin level:",
-          xhr.status,
-          xhr.statusText
-        );
-      }
-    }
-  };
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	xhr.onload = function () {
+		//If user is found
+		if (xhr.status == 200) {
+			let jsonObject = JSON.parse(xhr.responseText);
+			if (jsonObject != null) {
+				let admin = jsonObject.admin;
+				if (admin == "A") {
+					// If user is admin, toggle the popup form
+					togglePopup();
+				} else {
+					// If user is not admin, show alert
+					alert(
+						"Only admins are allowed to create events.\n" +
+							"You are not authorized to create events."
+					);
+				}
+			} else {
+				// Handle error cases (e.g., server error, invalid response)
+				console.error(
+					"Error fetching admin level:",
+					xhr.status,
+					xhr.statusText
+				);
+			}
+		}
+	};
 
-  // Send the JSON payload to the server
-  xhr.send(jsonPayload);
+	// Send the JSON payload to the server
+	xhr.send(jsonPayload);
 }
 
 function validAddEvent(eventName, location, description, time, date, phone) {
-  let eNameErr = (locErr = descripErr = phoneErr = timeErr = dateErr = true);
+	let eNameErr = (locErr = descripErr = phoneErr = timeErr = dateErr = true);
 
-  if (eventName.value == "") {
-    console.log("EVENT NAME IS BLANK");
-    eventName.style.borderColor = "red";
-  } else {
-    console.log("EVENT NAME VALID");
-    eNameErr = false;
-  }
+	if (eventName.value == "") {
+		console.log("EVENT NAME IS BLANK");
+		eventName.style.borderColor = "red";
+	} else {
+		console.log("EVENT NAME VALID");
+		eNameErr = false;
+	}
 
-  if (description.value == "") {
-    console.log("DESCRIPTION IS BLANK");
-    description.style.borderColor = "red";
-  } else {
-    console.log("Description is valid.");
-    descripErr = false;
-  }
+	if (description.value == "") {
+		console.log("DESCRIPTION IS BLANK");
+		description.style.borderColor = "red";
+	} else {
+		console.log("Description is valid.");
+		descripErr = false;
+	}
 
-  if (location.value == "") {
-    console.log("LOCATION IS BLANK");
-    location.style.borderColor = "red";
-  } else {
-    console.log("Location is valid.");
-    locErr = false;
-  }
+	if (location.value == "") {
+		console.log("LOCATION IS BLANK");
+		location.style.borderColor = "red";
+	} else {
+		console.log("Location is valid.");
+		locErr = false;
+	}
 
-  if (phone.value == "") {
-    console.log("PHONE IS BLANK");
-    phone.style.borderColor = "red";
-  } else {
-    let regex = /^[2-9]\d{2}-\d{3}-\d{4}$/;
+	if (phone.value == "") {
+		console.log("PHONE IS BLANK");
+		phone.style.borderColor = "red";
+	} else {
+		let regex = /^[2-9]\d{2}-\d{3}-\d{4}$/;
 
-    if (regex.test(phone.value) == false) {
-      console.log("PHONE IS NOT VALID");
-      phone.style.borderColor = "red";
-    } else {
-      console.log("PHONE IS VALID");
-      phoneErr = false;
-    }
-  }
+		if (regex.test(phone.value) == false) {
+			console.log("PHONE IS NOT VALID");
+			phone.style.borderColor = "red";
+		} else {
+			console.log("PHONE IS VALID");
+			phoneErr = false;
+		}
+	}
 
-  if (time.value == "") {
-    console.log("TIME IS BLANK");
-    time.style.borderColor = "red";
-  } else {
-    // Validate the time format using a regular expression (assuming HH:MM format)
-    let regex = /^\d{2}:\d{2}$/;
+	if (time.value == "") {
+		console.log("TIME IS BLANK");
+		time.style.borderColor = "red";
+	} else {
+		// Validate the time format using a regular expression (assuming HH:MM format)
+		let regex = /^\d{2}:\d{2}$/;
 
-    if (!regex.test(time.value)) {
-      console.log("TIME IS NOT VALID");
-      time.style.borderColor = "red";
-    } else {
-      console.log("TIME IS VALID");
-      time.style.borderColor = "green";
-      timeErr = false; // Assuming timeErr is a variable used to track validation result
-    }
-  }
+		if (!regex.test(time.value)) {
+			console.log("TIME IS NOT VALID");
+			time.style.borderColor = "red";
+		} else {
+			console.log("TIME IS VALID");
+			time.style.borderColor = "green";
+			timeErr = false; // Assuming timeErr is a variable used to track validation result
+		}
+	}
 
-  if (date.value == "") {
-    console.log("DATE IS BLANK");
-    date.style.borderColor = "red";
-  } else {
-    let regex = /^\d{4}-\d{2}-\d{2}$/;
+	if (date.value == "") {
+		console.log("DATE IS BLANK");
+		date.style.borderColor = "red";
+	} else {
+		let regex = /^\d{4}-\d{2}-\d{2}$/;
 
-    if (regex.test(date.value) == false) {
-      console.log("DATE IS NOT VALID");
-      date.style.borderColor = "red";
-    } else {
-      date.style.borderColor = "green";
-      console.log("DATE IS VALID");
-      dateErr = false;
-    }
-  }
+		if (regex.test(date.value) == false) {
+			console.log("DATE IS NOT VALID");
+			date.style.borderColor = "red";
+		} else {
+			date.style.borderColor = "green";
+			console.log("DATE IS VALID");
+			dateErr = false;
+		}
+	}
 
-  if ((eNameErr = locErr = descripErr = phoneErr = timeErr = dateErr) == true) {
-    return false;
-  }
+	if (
+		(eNameErr = locErr = descripErr = phoneErr = timeErr = dateErr) == true
+	) {
+		return false;
+	}
 
-  return true;
+	return true;
 }

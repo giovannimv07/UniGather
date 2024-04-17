@@ -1,7 +1,7 @@
-const urlBase = "http://localhost/project/API";
+const urlBase = "http://localhost/UniGather/API";
 const extension = "php";
 
-let id = 1;
+let id = sessionStorage.getItem("userId");
 let uni = 1;
 let firstName = "";
 let lastName = "";

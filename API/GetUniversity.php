@@ -1,6 +1,6 @@
+
 <?php
-session_start(); 
-	$inData = getRequestInfo();
+	// $inData = getRequestInfo();
     $searchResults = "";
 	$searchCount = 0;
 
@@ -11,9 +11,7 @@ session_start();
 	}
 	else
 	{
-        $sql = "SELECT e.EventID, e.Name AS eventName, e.LocID, e.Start, e.End, e.Date, e.Description, e.Phone, l.Name AS LocationName
-		FROM events e
-		INNER JOIN location l ON e.LocID = l.LocID";
+        $sql = "SELECT Name FROM university";
 		$stmt = $conn->prepare($sql);
 		// $stmt->bind_param("si", $eventName, $eventId);
 		$stmt->execute();
@@ -25,12 +23,12 @@ session_start();
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '{"eventId":"' . $row["EventID"] . '","eventName":"' . $row["eventName"] . '","LocID":"' . $row["LocID"] . '","LocationName":"' . $row["LocationName"] . '","start":"' . $row["Start"] . '","end":"' . $row["End"] . '","date":"' . $row["Date"] . '","description":"' . $row["Description"] . '","phone":"' . $row["Phone"] . '"}';
+			$searchResults .='{"name":"' . $row["Name"] . '"}';
         }
 
 		if($searchCount == 0){
 			http_response_code(409);
-			returnWithError("No events Found");
+			returnWithError("No universities");
 		}
 		else{
 			http_response_code(200);
@@ -60,7 +58,7 @@ session_start();
 	
 	function returnWithInfo($searchResults)
 	{
-		$retValue = '{"event":[' . $searchResults . '], "error":""}';
+		$retValue = '{"university":[' . $searchResults . '],"error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 	

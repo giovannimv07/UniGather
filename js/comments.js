@@ -1,7 +1,8 @@
 const urlBase = "http://localhost/UniGather/API";
 const extension = "php";
 
-let id = 1;
+let id = sessionStorage.getItem("userId");
+console.log("id: ", id);
 let eventId = 1;
 let firstName = "";
 let lastName = "";
