@@ -10,7 +10,10 @@ $start = $inData["Start"];
 $end = $inData["End"];
 $date = $inData["Date"];
 $phone = $inData["Phone"];
-
+$type = $inData['type'];
+$uniId = $inData["uniId"];
+$userId = $inData["userId"];
+$rsoId = $inData["rsoId"];
 // Database connection parameters
 $servername = "localhost";
 $username = "Admins";
@@ -54,10 +57,37 @@ if ($conn->connect_error) {
             if ($stmt->execute()) {
                 // Event inserted successfully
                 $newEventID = $stmt->insert_id;
-                $stmt->close();
-                $conn->close();
-                http_response_code(200);
-                sendResultInfoAsJson(array("EventID" => $newEventID));
+                switch ($type) {
+                    case 'Private':
+                        $insertPSql = "INSERT INTO private (EventID, UniID) VALUES (?, ?)";
+                        $stmt = $conn->prepare($insertPSql);
+                        $stmt->bind_param("ii", $newEventID, $uniId);
+                        break;
+                    case 'RSO':
+                        $insertPSql = "INSERT INTO rosevent (EventID, RSOID) VALUES (?, ?)";
+                        $stmt = $conn->prepare($insertPSql);
+                        $stmt->bind_param("ii", $newEventID, $rsoId);
+                        break;
+                    
+                    default:
+                        $insertPSql = "INSERT INTO public (EventID) VALUES (?)";
+                        $stmt = $conn->prepare($insertPSql);
+                        $stmt->bind_param("i", $newEventID);
+                        break;
+                }
+
+                if ($stmt->execute()){
+                    $stmt->close();
+                    $conn->close();
+                    http_response_code(200);
+                    sendResultInfoAsJson(array("EventID" => $newEventID));
+                }else{
+                    $stmt->close();
+                    $conn->close();
+                    http_response_code(409);
+                    // Failed to insert event
+                    returnWithError("Failed to insert to type event");
+                }
             } else {
                 $stmt->close();
                 $conn->close();

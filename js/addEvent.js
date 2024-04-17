@@ -6,6 +6,9 @@ function addEvent() {
 	let end = document.getElementById("end").value;
 	let date = document.getElementById("eventDate").value;
 	let phone = document.getElementById("eventPhone").value;
+	let type = document.getElementById("eventType").value;
+	let rsoId = document.getElementById("rsoId").value;
+	console.log("Im here");
 
 	document.getElementById("addEventResult").innerHTML = "";
 
@@ -18,10 +21,15 @@ function addEvent() {
 			end: end,
 			date: date,
 			phone: phone,
+			type: type,
+			uniId: sessionStorage.getItem("uniId"),
+			userId: sessionStorage.getItem("userId"),
+			rsoId: rsoId,
 		};
 
 		let jsonPayload = JSON.stringify(tmp);
 
+		localStorage.setItem("Payload", jsonPayload);
 		let url = urlBase + "/AddEvent." + extension;
 
 		let xhr = new XMLHttpRequest();

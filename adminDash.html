@@ -186,9 +186,7 @@
 											<option value="Private">
 												Fundraising
 											</option>
-											<option value="RSO">
-												RSO
-											</option>
+											<option value="RSO">RSO</option>
 										</select>
 									</div>
 
@@ -200,7 +198,7 @@
 											type="text"
 											id="eventLocation"
 											placeholder="Enter the address"
-										/><br /><br />
+										/>
 										<label id="lblresult"></label>
 
 										<label class="form-label">
@@ -229,23 +227,16 @@
 											required
 										/>
 
-										<label class="form-label" for="RSO"
-											>Select an RSO</label
+										<label class="form-label" for="rsoId">
+											RSO ID</label
 										>
-										<select name="rso" id="rso">
-											<option value="select">
-												Select a Category
-											</option>
-											<option value="Clubs">Clubs</option>
-											<option value="Fraternities">
-												Fraternities
-											</option>
-											<option
-												value="Registered Student Organization"
-											>
-												Registered Student Organization
-											</option>
-										</select>
+										<input
+											class="form-input"
+											type="number"
+											placeholder="xxxxx"
+											id="rsoId"
+											name="rsoId"
+										/>
 									</div>
 								</div>
 								<div class="">
@@ -295,7 +286,8 @@
 							<div class="row">
 								<div class="col">
 									<label class="form-label" for="uniName">
-										University Name</label>
+										University Name</label
+									>
 									<input
 										class="form-input"
 										type="text"
@@ -357,7 +349,8 @@
 									<button
 										class="btn-submit"
 										type="submit"
-										onclick="createUni();">
+										onclick="createUni();"
+									>
 										Submit
 									</button>
 									<span id="addUniResult"></span>
