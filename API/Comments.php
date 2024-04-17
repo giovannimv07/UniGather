@@ -4,7 +4,7 @@
     // $eventId = $inData["eventId"]
     // $userId = $inData["userId"]
     // $commentId = $inData["commentId"]
-    $eventName = $inData["eventName"];
+    // $eventName = $inData["eventName"];
 	$eventId = $inData["eventId"];
     $searchResults = "";
 	$eventInfo = "";
@@ -18,27 +18,31 @@
 	else
 	{
         $sql = "SELECT
-        events.EventID,
-        events.Name,
+		events.EventID,
+		events.Name,
 		events.Description,
 		events.Time,
 		events.Date,
-		events.Location,
+		events.LocID,
 		events.Phone,
-        users.FirstName,
+		users.FirstName,
 		users.UserID,
-        comment.Text,
-		comment.Rating
-        FROM
-        events
-        JOIN
-        comment ON events.EventID = comment.EventID
-        JOIN
-        users ON users.UserID = comment.UserID
-        WHERE
-        events.Name LIKE ? AND events.EventID LIKE ?";
+		comment.Text,
+		comment.Rating,
+		location.LocName
+	FROM
+		events
+	LEFT JOIN
+		comment ON events.EventID = comment.EventID
+	LEFT JOIN
+		users ON users.UserID = comment.UserID
+	JOIN
+		location ON location.LocID = events.LocID
+	WHERE
+		events.EventID = ?";
 		$stmt = $conn->prepare($sql);
-		$stmt->bind_param("si", $eventName, $eventId);
+		// $stmt->bind_param("si", $eventName, $eventId);
+		$stmt->bind_param("i",$eventId);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
@@ -48,10 +52,12 @@
 				$searchResults .= ",";
 			}
 			if ($searchCount == 0){
-				$eventInfo = '{"eventId":' . $row["EventID"] . ',"eventName":"' . $row["Name"] . '","location":"' . $row["Location"] . '","time":"' . $row["Time"] . '","date":"' . $row["Date"] . '","description":"' . $row["Description"] . '","phone":"' . $row["Phone"] . '"}';
+				$eventInfo = '{"eventId":' . $row["EventID"] . ',"eventName":"' . $row["Name"] . '","location":"' . $row["LocName"] . '","time":"' . $row["Time"] . '","date":"' . $row["Date"] . '","description":"' . $row["Description"] . '","phone":"' . $row["Phone"] . '"}';
 			}
 			$searchCount++;
+			if(!($row['UserID'] == null)){
 			$searchResults .='{"userId":' . $row["UserID"] . ',"firstName":"' . $row["FirstName"] . '","text":"' . $row["Text"] . '","rating":' . $row["Rating"] . '}';
+			}
         }
 
 		if($searchCount == 0){
@@ -80,7 +86,7 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"eventId":0,"Name":"","firstName":"","error":"' . $err . '"}';
+		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	

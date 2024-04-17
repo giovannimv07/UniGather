@@ -1,59 +1,59 @@
 function addEvent() {
-  let eventName = document.getElementById("eventName").value;
- // let location = document.getElementById("lblresult").value;
-  let description = document.getElementById("description").value;
-  let start = document.getElementById("start").value;
-  let end = document.getElementById("end").value;
-  let date = document.getElementById("eventDate").value;
-  let phone = document.getElementById("eventPhone").value;
+	let eventName = document.getElementById("eventName").value;
+	// let location = document.getElementById("lblresult").value;
+	let description = document.getElementById("description").value;
+	let start = document.getElementById("start").value;
+	let end = document.getElementById("end").value;
+	let date = document.getElementById("eventDate").value;
+	let phone = document.getElementById("eventPhone").value;
 
-  document.getElementById("addEventResult").innerHTML = "";
+	document.getElementById("addEventResult").innerHTML = "";
 
-  let locID = checkForLocation();
+	checkForLocation(function (locId) {
+		let tmp = {
+			eventName: eventName,
+			locID: locId,
+			description: description,
+			start: start,
+			end: end,
+			date: date,
+			phone: phone,
+		};
 
-  let tmp = {
-    eventName: eventName,
-    locID: locID,
-    description: description,
-    start: start,
-    end: end,
-    date: date,
-    phone: phone,
-  };
+		let jsonPayload = JSON.stringify(tmp);
 
-  let jsonPayload = JSON.stringify(tmp);
+		let url = urlBase + "/AddEvent." + extension;
 
-  let url = urlBase + "/AddEvent." + extension;
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		xhr.onload = function () {
+			if (xhr.status == 409) {
+				alert("Conflicting event times");
+				document.getElementById("addEventResult").innerHTML =
+					"Conflicting events";
+			} else if (xhr.status == 200) {
+				window.alert("Event created!");
+				createEventCard(tmp);
+				loadEvents();
+			}
+		};
 
-  xhr.onload = function () {
-    if (xhr.status == 409) {
-      alert("Conflicting event times");
-      document.getElementById("addEventResult").innerHTML =
-        "Conflicting events";
-    } 
-    else if (xhr.status == 200) {
-      window.alert("Event created!");
-      createEventCard(tmp);
-      loadEvents();
-    }
-  };
+		xhr.onerror = function () {
+			document.getElementById("addEventResult").innerHTML =
+				"Error occurred";
+		};
 
-  xhr.onerror = function () {
-    document.getElementById("addEventResult").innerHTML = "Error occurred";
-  };
-
-  xhr.send(jsonPayload);
+		xhr.send(jsonPayload);
+	});
 }
 
 function createEventCard(jsonObject) {
-  const boxContainer = document.querySelector(".box-container");
-  const newBox = document.createElement("div");
-  newBox.classList.add("box", "box-child");
-  newBox.innerHTML = `
+	const boxContainer = document.querySelector(".box-container");
+	const newBox = document.createElement("div");
+	newBox.classList.add("box", "box-child");
+	newBox.innerHTML = `
     <div>
     <p class="event-heading">${jsonObject.eventName}</p> 
     <p class="topic">Location: ${jsonObject.LocationName}</p> 
@@ -63,9 +63,16 @@ function createEventCard(jsonObject) {
     <p class="Phone">Phone: ${jsonObject.phone}</p>
     <p class="info">Info of the event: ${jsonObject.description}</p>
     <div id =”my-map” style = “width:12px; height:12px;”></div>
-  </div>
-  <button class="delete-button">Delete Event</button>
+	</div>
             `;
+	newBox.dataset.eventId = jsonObject.eventId;
+	// Add event listener to the newBox to handle clicks
+	newBox.addEventListener("click", function () {
+		// Save the event ID to localStorage
+		localStorage.setItem("eventId", jsonObject.eventId);
+		// Redirect the user to comment.html
+		window.location.href = "comments.html";
+	});
 	boxContainer.appendChild(newBox);
 	// Attach removeBox function to delete button inside the new box
 

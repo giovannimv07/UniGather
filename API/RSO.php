@@ -13,21 +13,36 @@
 	}
 	else
 	{
-        $sql = "SELECT
-        university.Name,
+        // $sql = "SELECT
+        // university.Name,
+		// university.Location,
+		// university.Description,
+		// university.UniStudents,
+        // rso.RSOID,
+		// rso.RSOName,
+		// rso.RSODescription,
+		// rso.Members
+        // FROM
+        // university
+        // JOIN
+        // rso ON university.UniID = rso.UniID
+        // WHERE
+        // university.UniID LIKE ? ";
+		$sql = "SELECT
+		university.Name,
 		university.Location,
 		university.Description,
 		university.UniStudents,
-        rso.RSOID,
+		rso.RSOID,
 		rso.RSOName,
 		rso.RSODescription,
 		rso.Members
-        FROM
-        university
-        JOIN
-        rso ON university.UniID = rso.UniID
-        WHERE
-        university.UniID LIKE ? ";
+		FROM
+		university
+		LEFT JOIN
+		rso ON university.UniID = rso.UniID
+		WHERE
+		university.UniID LIKE ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("i", $uniId);
 		$stmt->execute();
@@ -42,7 +57,9 @@
 				$uniInfo = '{"name":"' . $row["Name"] . '","location":"' . $row["Location"] . '","description":"' . $row["Description"] . '","students":' . $row["UniStudents"] . '}';
 			}
 			$searchCount++;
-			$searchResults .='{"rsoId":' . $row["RSOID"] . ',"name":"' . $row["RSOName"] . '","description":"' . $row["RSODescription"] . '","students":' . $row["Members"] . '}';
+			if(!($row['RSOID'] == null)){
+				$searchResults .='{"rsoId":' . $row["RSOID"] . ',"name":"' . $row["RSOName"] . '","description":"' . $row["RSODescription"] . '","students":' . $row["Members"] . '}';
+			}
         }
 
 		if($searchCount == 0){
@@ -71,13 +88,13 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"eventId":0,"Name":"","firstName":"","error":"' . $err . '"}';
+		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
 	function returnWithInfo($searchResults, $uniInfo)
 	{
-		$retValue = '{"uniInfo":[' . $uniInfo . '] ,"rsos":[' . $searchResults . '],"error":""}';
+		$retValue = '{"uniInfo":[' . $uniInfo . '],"rsos":[' . $searchResults . '],"error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 	

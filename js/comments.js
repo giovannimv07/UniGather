@@ -1,12 +1,8 @@
 const urlBase = "http://localhost/UniGather/API";
 const extension = "php";
 
-let id = sessionStorage.getItem("userId");
-console.log("id: ", id);
-let eventId = 1;
-let firstName = "";
-let lastName = "";
-let email = "";
+let id = parseInt(sessionStorage.getItem("userId"));
+let eventID = parseInt(localStorage.getItem("eventId"));
 document.addEventListener("DOMContentLoaded", function () {
 	loadComments();
 	document
@@ -24,16 +20,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 				// Save changes when editing is finished (e.g., blur or Enter key)
 				commentContent.addEventListener("blur", function () {
-					EditComment(eventId, id, commentContent.textContent.trim());
+					EditComment(eventID, id, commentContent.textContent.trim());
 				});
 				commentContent.addEventListener("keypress", function (event) {
 					if (event.key === "Enter") {
 						event.preventDefault(); // Prevent line break in contenteditable
-						EdiComment(
-							eventId,
+						EditComment(
+							eventID,
 							id,
 							commentContent.textContent.trim()
 						);
+						commentContent.contentEditable = false;
 					}
 				});
 			}
@@ -64,12 +61,12 @@ function EditComment(eventId, userId, newText) {
 // Load the comments to a specific event.
 function loadComments() {
 	let tmp = {
-		eventId: 1,
-		eventName: "Car Wash",
+		eventId: eventID,
+		// eventName: "Car Wash",
 	};
 
 	let jsonPayload = JSON.stringify(tmp);
-	let url = urlBase + "/comments." + extension;
+	let url = urlBase + "/Comments." + extension;
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -206,7 +203,7 @@ function editComment(userId, eventId, newText) {
 function deleteComment(userId) {
 	let tmp = {
 		userId: userId,
-		eventId: eventId,
+		eventId: eventID,
 	};
 
 	let jsonPayload = JSON.stringify(tmp);
@@ -238,7 +235,7 @@ function addComment() {
 	let rate = document.getElementById("comment-rating").value;
 	let rating = parseInt(rate);
 	let tmp = {
-		eventId: eventId,
+		eventId: eventID,
 		userId: id,
 		text: commentText,
 		rating: rating,

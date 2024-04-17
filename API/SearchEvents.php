@@ -11,7 +11,7 @@ session_start();
 	}
 	else
 	{
-        $sql = "SELECT e.EventID, e.Name AS eventName, e.LocID, e.Start, e.End, e.Date, e.Description, e.Phone, l.Name AS LocationName
+        $sql = "SELECT e.EventID, e.Name AS eventName, e.LocID, e.Start, e.End, e.Date, e.Description, e.Phone, l.LocName AS LocationName
 		FROM events e
 		INNER JOIN location l ON e.LocID = l.LocID";
 		$stmt = $conn->prepare($sql);

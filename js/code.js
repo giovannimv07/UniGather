@@ -127,6 +127,7 @@ function doRegister() {
 
 function doLogin() {
 	userId = 0;
+	uniId = 0;
 	firstName = "";
 	lastName = "";
 	admin = 0;
@@ -156,6 +157,7 @@ function doLogin() {
 			} else if (this.readyState == 4 && this.status == 200) {
 				let jsonObject = JSON.parse(xhr.responseText);
 				userId = jsonObject.userId;
+				uniId = jsonObject.uniId;
 
 				if (userId < 1) {
 					loginResult.innerHTML =
@@ -165,7 +167,9 @@ function doLogin() {
 
 				// Store userId in session storage
 				sessionStorage.setItem("userId", userId);
+				sessionStorage.setItem("uniId", uniId);
 				console.log(userId);
+				console.log(uniId);
 
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
@@ -204,3 +208,58 @@ function saveCookie() {
 		";expires=" +
 		date.toGMTString();
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+	var studentRadio = document.getElementById("student");
+	var adminRadio = document.getElementById("admin");
+	var superRadio = document.getElementById("superAdmin");
+	var universitySelection = document.getElementById("universitySelection");
+
+	studentRadio.addEventListener("change", function () {
+		if (this.checked) {
+			universitySelection.style.display = "block";
+		} else {
+			universitySelection.style.display = "none";
+		}
+	});
+
+	adminRadio.addEventListener("change", function () {
+		if (this.checked) {
+			universitySelection.style.display = "block";
+		} else {
+			universitySelection.style.display = "none";
+		}
+	});
+	superRadio.addEventListener("change", function () {
+		if (this.checked) {
+			universitySelection.style.display = "none";
+		}
+	});
+});
+
+// function fetchUniversities() {
+// 	// Make an AJAX request to fetch universities
+// 	let url = urlBase + "/GetUniversities." + extension;
+// 	let xhr = new XMLHttpRequest();
+// 	xhr.open("GET", url, true);
+// 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+// 	xhr.onreadystatechange = function () {
+// 		if (this.readyState === 4 && this.status === 200) {
+// 			let universities = JSON.parse(xhr.responseText);
+
+// 			// Clear existing options
+// 			universitySelect.innerHTML = "";
+
+// 			// Add fetched universities to the select dropdown
+// 			universities.forEach(function (university) {
+// 				let option = document.createElement("option");
+// 				option.value = university.id; // Assuming id and name properties in the JSON response
+// 				option.textContent = university.name;
+// 				universitySelect.appendChild(option);
+// 			});
+// 		}
+// 	};
+
+// 	xhr.send();
+// }

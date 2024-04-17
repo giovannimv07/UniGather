@@ -2,7 +2,7 @@ const urlBase = "http://localhost/UniGather/API";
 const extension = "php";
 
 let id = sessionStorage.getItem("userId");
-let uni = 1;
+let uni = sessionStorage.getItem("uniId");
 let firstName = "";
 let lastName = "";
 let email = "";
@@ -34,6 +34,7 @@ function loadRSO() {
 					console.log(jsonObject.error);
 					return;
 				}
+				console.log(jsonObject);
 				// Update University information
 				document.querySelector(".university-info h2").textContent =
 					jsonObject.uniInfo[0].name;

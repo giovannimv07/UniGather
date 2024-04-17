@@ -33,13 +33,16 @@ if ($conn->connect_error) {
 
     if ($result->num_rows > 0) {
         // LocID exists in location table, check for event conflicts
-        $conflictCheckSql = "SELECT * FROM events WHERE LocID = ? AND Date = ? AND ((End > ? AND ? > Start) OR (End > ? AND Start > ?))";
+        $conflictCheckSql = "SELECT * FROM events WHERE LocID = ? AND Date = ? AND NOT ((End <= ?) OR (Start >= ?))";
         $stmt = $conn->prepare($conflictCheckSql);
-        $stmt->bind_param("isssss", $locID, $date, $end, $start, $end, $start);
+        $stmt->bind_param("isss", $locID, $date, $start, $end);
         $stmt->execute();
         $conflictResult = $stmt->get_result();
+
         if ($conflictResult->num_rows > 0) {
             // Conflict detected, return error
+            $stmt->close();
+            $conn->close();
             http_response_code(409);
             returnWithError("Event conflicts with existing event");
         } else {
@@ -51,23 +54,25 @@ if ($conn->connect_error) {
             if ($stmt->execute()) {
                 // Event inserted successfully
                 $newEventID = $stmt->insert_id;
+                $stmt->close();
+                $conn->close();
                 http_response_code(200);
                 sendResultInfoAsJson(array("EventID" => $newEventID));
             } else {
+                $stmt->close();
+                $conn->close();
                 http_response_code(409);
                 // Failed to insert event
                 returnWithError("Failed to insert event");
             }
         }
     } else {
+        $stmt->close();
+        $conn->close();
         http_response_code(409);
         // LocID does not exist in location table
         returnWithError("LocID does not exist in location table");
     }
-
-    // Close statement and connection
-    $stmt->close();
-    $conn->close();
 }
 
 function getRequestInfo()
