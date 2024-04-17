@@ -214,6 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	var adminRadio = document.getElementById("admin");
 	var superRadio = document.getElementById("superAdmin");
 	var universitySelection = document.getElementById("universitySelection");
+	fetchUniversities();
 
 	studentRadio.addEventListener("change", function () {
 		if (this.checked) {
@@ -237,29 +238,34 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 });
 
-// function fetchUniversities() {
-// 	// Make an AJAX request to fetch universities
-// 	let url = urlBase + "/GetUniversities." + extension;
-// 	let xhr = new XMLHttpRequest();
-// 	xhr.open("GET", url, true);
-// 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+function fetchUniversities() {
+	console.log(" IN here");
+	// Make an AJAX request to fetch universities
+	let url = urlBase + "/GetUniversity." + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-// 	xhr.onreadystatechange = function () {
-// 		if (this.readyState === 4 && this.status === 200) {
-// 			let universities = JSON.parse(xhr.responseText);
+	xhr.onreadystatechange = function () {
+		if (this.readyState === 4 && this.status === 200) {
+			let jsonObject = JSON.parse(xhr.responseText);
+			if (jsonObject.error) {
+				console.log(jsonObject.error);
+				return;
+			}
+			// Clear existing options
+			let uniSelect = document.getElementById("university");
+			uniSelect.innerHTML = "";
 
-// 			// Clear existing options
-// 			universitySelect.innerHTML = "";
+			// Add fetched universities to the select dropdown
+			jsonObject.university.forEach(function (uni) {
+				let option = document.createElement("option");
+				option.value = uni.name;
+				option.textContent = uni.name;
+				university.appendChild(option);
+			});
+		}
+	};
 
-// 			// Add fetched universities to the select dropdown
-// 			universities.forEach(function (university) {
-// 				let option = document.createElement("option");
-// 				option.value = university.id; // Assuming id and name properties in the JSON response
-// 				option.textContent = university.name;
-// 				universitySelect.appendChild(option);
-// 			});
-// 		}
-// 	};
-
-// 	xhr.send();
-// }
+	xhr.send();
+}
