@@ -1,56 +1,59 @@
 function addEvent() {
-	let eventName = document.getElementById("eventName").value;
-	let location = document.getElementById("eventLocation").value;
-	let description = document.getElementById("description").value;
-	let start = document.getElementById("start").value;
-	let end = document.getElementById("end").value;
-	let date = document.getElementById("eventDate").value;
-	let phone = document.getElementById("eventPhone").value;
+  let eventName = document.getElementById("eventName").value;
+ // let location = document.getElementById("lblresult").value;
+  let description = document.getElementById("description").value;
+  let start = document.getElementById("start").value;
+  let end = document.getElementById("end").value;
+  let date = document.getElementById("eventDate").value;
+  let phone = document.getElementById("eventPhone").value;
 
-	document.getElementById("addEventResult").innerHTML = "";
+  document.getElementById("addEventResult").innerHTML = "";
 
-	let tmp = {
-		eventName: eventName,
-		location: location,
-		description: description,
-		start: start,
-		end: end,
-		date: date,
-		phone: phone,
-	};
+  let locID = checkForLocation();
 
-	let jsonPayload = JSON.stringify(tmp);
+  let tmp = {
+    eventName: eventName,
+    locID: locID,
+    description: description,
+    start: start,
+    end: end,
+    date: date,
+    phone: phone,
+  };
 
-	let url = urlBase + "/AddEvent." + extension;
+  let jsonPayload = JSON.stringify(tmp);
 
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  let url = urlBase + "/AddEvent." + extension;
 
-	xhr.onload = function () {
-		if (xhr.status == 409) {
-			document.getElementById("addEventResult").innerHTML =
-				"Event already exists";
-		} else if (xhr.status == 200) {
-			window.alert("Event created!");
-			createEventCard(tmp);
-			loadEvents();
-		}
-	};
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-	xhr.onerror = function () {
-		document.getElementById("addEventResult").innerHTML = "Error occurred";
-	};
+  xhr.onload = function () {
+    if (xhr.status == 409) {
+      alert("Conflicting event times");
+      document.getElementById("addEventResult").innerHTML =
+        "Conflicting events";
+    } 
+    else if (xhr.status == 200) {
+      window.alert("Event created!");
+      createEventCard(tmp);
+      loadEvents();
+    }
+  };
 
-	xhr.send(jsonPayload);
+  xhr.onerror = function () {
+    document.getElementById("addEventResult").innerHTML = "Error occurred";
+  };
+
+  xhr.send(jsonPayload);
 }
 
 function createEventCard(jsonObject) {
-	const boxContainer = document.querySelector(".box-container");
-	const newBox = document.createElement("div");
-	newBox.classList.add("box", "box-child");
-	console.log(jsonObject.location);
-	newBox.innerHTML = `
+  const boxContainer = document.querySelector(".box-container");
+  const newBox = document.createElement("div");
+  newBox.classList.add("box", "box-child");
+  newBox.innerHTML = `
     <div>
     <p class="event-heading">${jsonObject.eventName}</p> 
     <p class="topic">Location: ${jsonObject.LocationName}</p> 
