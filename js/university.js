@@ -34,6 +34,7 @@ function loadRSO() {
 					console.log(jsonObject.error);
 					return;
 				}
+				console.log(jsonObject);
 				// Update University information
 				document.querySelector(".university-info h2").textContent =
 					jsonObject.uniInfo[0].name;

@@ -9,43 +9,44 @@ function addEvent() {
 
 	document.getElementById("addEventResult").innerHTML = "";
 
-	let locID = checkForLocation();
+	checkForLocation(function (locId) {
+		let tmp = {
+			eventName: eventName,
+			locID: locId,
+			description: description,
+			start: start,
+			end: end,
+			date: date,
+			phone: phone,
+		};
 
-	let tmp = {
-		eventName: eventName,
-		locID: locID,
-		description: description,
-		start: start,
-		end: end,
-		date: date,
-		phone: phone,
-	};
+		let jsonPayload = JSON.stringify(tmp);
 
-	let jsonPayload = JSON.stringify(tmp);
+		let url = urlBase + "/AddEvent." + extension;
 
-	let url = urlBase + "/AddEvent." + extension;
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		xhr.onload = function () {
+			if (xhr.status == 409) {
+				alert("Conflicting event times");
+				document.getElementById("addEventResult").innerHTML =
+					"Conflicting events";
+			} else if (xhr.status == 200) {
+				window.alert("Event created!");
+				createEventCard(tmp);
+				loadEvents();
+			}
+		};
 
-	xhr.onload = function () {
-		if (xhr.status == 409) {
-			alert("Conflicting event times");
+		xhr.onerror = function () {
 			document.getElementById("addEventResult").innerHTML =
-				"Conflicting events";
-		} else if (xhr.status == 200) {
-			window.alert("Event created!");
-			createEventCard(tmp);
-			loadEvents();
-		}
-	};
+				"Error occurred";
+		};
 
-	xhr.onerror = function () {
-		document.getElementById("addEventResult").innerHTML = "Error occurred";
-	};
-
-	xhr.send(jsonPayload);
+		xhr.send(jsonPayload);
+	});
 }
 
 function createEventCard(jsonObject) {
