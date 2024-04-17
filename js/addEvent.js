@@ -81,10 +81,11 @@ function createEventCard(jsonObject) {
 
 function loadEvents() {
 	let tmp = {
-		userId: sessionStorage.getItem("userID"),
+		userId: sessionStorage.getItem("userId"),
 	};
 
 	let jsonPayload = JSON.stringify(tmp);
+	console.log("Payload: ", jsonPayload);
 
 	let url = urlBase + "/SearchEvents." + extension;
 	let xhr = new XMLHttpRequest();
@@ -100,7 +101,7 @@ function loadEvents() {
 
 			// Clear existing event cards
 			document.getElementsByClassName(".box-container").innerHTML = "";
-
+			console.log("Object: ", jsonObject.event);
 			// Loop through the results and create event cards
 			for (let i = 0; i < jsonObject.event.length; i++) {
 				createEventCard(jsonObject.event[i]);
