@@ -1,60 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, 
+				initial-scale=1.0"
+		/>
+		<title>UniGather</title>
+		<style>
+			#map {
+				display: none;
+			}
+		</style>
+		<script
+			defer
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjZXbU_Rru4ki0nsCRatmGCauMO4kTLlg&libraries=places"
+		></script>
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, 
-				initial-scale=1.0">
-	<title>UniGather</title>
-	<style>
-		#map {
-			display: none;
-		}
-	</style>
-	<script defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjZXbU_Rru4ki0nsCRatmGCauMO4kTLlg&libraries=places"></script>
+		<script type="text/javascript">
+			// Define the initMap function to initialize the map
+			function initMap() {
+				// Set the initial location (e.g., New York City)
+				var initialLocation = { lat: 40.7128, lng: -74.006 };
 
-	</script>
-	<script type="text/javascript">
-		// Define the initMap function to initialize the map
-		function initMap() {
-			// Set the initial location (e.g., New York City)
-			var initialLocation = { lat: 40.7128, lng: -74.0060 };
+				// Create a new map centered at the initial location
+				var map = new google.maps.Map(document.getElementById("map"), {
+					center: initialLocation,
+					zoom: 12, // Adjust the zoom level as needed
+				});
 
-			// Create a new map centered at the initial location
-			var map = new google.maps.Map(document.getElementById('map'), {
-				center: initialLocation,
-				zoom: 12 // Adjust the zoom level as needed
-			});
+				// Add any additional map functionality here (markers, info windows, etc.)
+			}
+		</script>
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		/>
+		<link rel="stylesheet" href="css/adminDash.css" />
+		<link rel="stylesheet" href="css/responsive.css" />
+		<link rel="stylesheet" href="css/CreateEventForm.css" />
+	</head>
 
-			// Add any additional map functionality here (markers, info windows, etc.)
-		}
-	</script>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="css/adminDash.css">
-	<link rel="stylesheet" href="css/responsive.css">
-	<link rel="stylesheet" href="css/CreateEventForm.css">
-</head>
-
-<body>
-	<!-- for header part -->
-	<header>
-		<div class="logosec">
-			<div class="logo">UniGather</div>
-			<i class="material-icons icn menuicn" id="menuicn" alt="menu-icon">menu
-			</i>
-		</div>
-		<button class="button-34 btn-open-popup" onclick="canUserCreateEvent()"> Create Event
-			<i class="icn srchicn material-icons" alt="add-icon">add </i>
-		</button>
-		<div>
-			<button class="button-34 btn-open-popup" onclick="canCreateUni()"> Create University
-				<i class="icn srchicn material-icons" alt="add-icon">add </i>
-			</button>
-		</div>
-		<div>
-			<div class="logo" id="adminLevel">
+	<body>
+		<!-- for header part -->
+		<header>
+			<div class="logosec">
+				<div class="logo">UniGather</div>
+				<i
+					class="material-icons icn menuicn"
+					id="menuicn"
+					alt="menu-icon"
+					>menu
+				</i>
 			</div>
 			<button
 				class="button-34 btn-open-popup"
@@ -63,6 +62,17 @@
 				Create Event
 				<i class="icn srchicn material-icons" alt="add-icon">add </i>
 			</button>
+			<div>
+				<button
+					class="button-34 btn-open-popup"
+					onclick="canCreateUni()"
+				>
+					Create University
+					<i class="icn srchicn material-icons" alt="add-icon"
+						>add
+					</i>
+				</button>
+			</div>
 			<div>
 				<div class="logo" id="adminLevel"></div>
 			</div>
@@ -83,18 +93,14 @@
 							<a href="adminDash.html"><h3>Dashboard</h3></a>
 						</div>
 
-						<div class="nav-option option">
-							<!-- <h3>RSOs</h3> -->
-							<a href="university.html"><h3>RSOs</h3></a>
-						</div>
-
-						<div class="nav-option option5">
+						<div class="nav-option option4">
 							<img
-								src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+								src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/6.png"
 								class="nav-img"
-								alt="blog"
+								alt="institution"
 							/>
-							<h3>Profile</h3>
+							<!-- <h3>Institution</h3> -->
+							<a href="university.html"><h3>RSOs</h3></a>
 						</div>
 
 						<div class="nav-option logout">
@@ -103,95 +109,165 @@
 								class="nav-img"
 								alt="logout"
 							/>
+							<!-- <h3>Logout</h3> -->
 							<a href="index.html"><h3>Logout</h3></a>
 						</div>
 					</div>
+				</nav>
+			</div>
+			<div class="main">
+				<!-- search bar content -->
+				<h2>Upcoming events</h2>
 
-				</div>
-			</nav>
-		</div>
-		<div class="main">
-			<!-- search bar content -->
-			<h2>
-				Upcoming events
-			</h2>
+				<!-- Popup form for creating events -->
+				<div class="box-container">
+					<div id="map"></div>
 
-			<!-- Popup form for creating events -->
-			<div class="box-container">
-				<div id="map"></div>
+					<!-- Your existing popup form -->
+					<div id="popupOverlay" class="overlay-container">
+						<div class="popup-box">
+							<h2>Create Event Form</h2>
+							<form class="form-container" action method="post">
+								<div class="row">
+									<div class="col">
+										<label
+											class="form-label"
+											for="eventName"
+										>
+											Event Name</label
+										>
+										<input
+											class="form-input"
+											type="text"
+											placeholder="Event name"
+											id="eventName"
+											name="eventName"
+											required
+										/>
 
-				<!-- Your existing popup form -->
-				<div id="popupOverlay" class="overlay-container">
-					<div class="popup-box">
-						<h2>Create Event Form</h2>
-						<form class="form-container" action method="post">
-							<div class="row">
-								<div class="col">
-									<label class="form-label" for="eventName"> Event Name</label>
-									<input class="form-input" type="text" placeholder="Event name" id="eventName"
-										name="eventName" required>
+										<label
+											class="form-label"
+											for="eventTime"
+										>
+											Event Start Time</label
+										>
+										<input
+											class="form-input"
+											type="time"
+											placeholder=" "
+											id="start"
+											name="eventTime"
+											required
+										/>
 
-									<label class="form-label" for="eventTime"> Event Start Time</label>
-									<input class="form-input" type="time" placeholder=" " id="start" name="eventTime"
-										required>
+										<label class="form-label" for="date">
+											Event Date</label
+										>
+										<input
+											class="form-input"
+											type="date"
+											placeholder=" "
+											id="eventDate"
+											name="eventDate"
+											required
+										/>
 
-									<label class="form-label" for="date"> Event Date</label>
-									<input class="form-input" type="date" placeholder=" " id="eventDate"
-										name="eventDate" required>
+										<label
+											class="form-label"
+											for="eventType"
+											>Type of Event</label
+										>
+										<select name="type" id="eventType">
+											<option value="select">
+												Select a Category
+											</option>
+											<option value="Social">
+												Social
+											</option>
+											<option value="Fundraising">
+												Fundraising
+											</option>
+											<option value="Tech Talk">
+												Tech talk
+											</option>
+											<option value="Career Readiness">
+												Career Readiness
+											</option>
+											<option
+												value="Organization Meeting"
+											>
+												Organization Meeting
+											</option>
+											<option value="Other">Other</option>
+										</select>
+									</div>
 
-									<label class="form-label" for="eventType">Type of Event</label>
-									<select name="type" id="eventType">
-										<option value="select">Select a Category</option>
-										<option value="Social">Social</option>
-										<option value="Fundraising">Fundraising</option>
-										<option value="Tech Talk">Tech talk</option>
-										<option value="Career Readiness">Career Readiness</option>
-										<option value="Organization Meeting">Organization Meeting</option>
-										<option value="Other">Other</option>
-									</select>
+									<div class="col">
+										<label class="form-label" for="location"
+											>Location:</label
+										>
+										<input
+											type="text"
+											id="eventLocation"
+											placeholder="Enter the address"
+										/><br /><br />
+										<label id="lblresult"></label>
 
+										<label class="form-label">
+											Event End Time</label
+										>
+										<input
+											class="form-input"
+											type="time"
+											placeholder=" "
+											id="end"
+											required
+										/>
+
+										<label
+											class="form-label"
+											for="eventPhone"
+										>
+											Event Phone</label
+										>
+										<input
+											class="form-input"
+											type="phone"
+											placeholder=" "
+											id="eventPhone"
+											name="eventPhone"
+											required
+										/>
+
+										<label class="form-label" for="RSO"
+											>Select an RSO</label
+										>
+										<select name="rso" id="rso">
+											<option value="select">
+												Select a Category
+											</option>
+											<option value="Clubs">Clubs</option>
+											<option value="Fraternities">
+												Fraternities
+											</option>
+											<option
+												value="Registered Student Organization"
+											>
+												Registered Student Organization
+											</option>
+										</select>
+									</div>
 								</div>
-
-
-								<div class="col">
-									<label class="form-label" for="location">Location:</label>
-									<input type="text" id="eventLocation" placeholder="Enter the address" /><br /><br />
-									<label id="lblresult"></label>
-
-
-									<label class="form-label"> Event End Time</label>
-									<input class="form-input" type="time" placeholder=" " id="end" required>
-
-									<label class="form-label" for="eventPhone"> Event Phone</label>
-									<input class="form-input" type="phone" placeholder=" " id="eventPhone"
-										name="eventPhone" required>
-
-
-									<label class="form-label" for="RSO">Select an RSO</label>
-									<select name="rso" id="rso">
-										<option value="select">Select a Category</option>
-										<option value="Clubs">Clubs</option>
-										<option value="Fraternities">Fraternities</option>
-										<option value="Registered Student Organization">Registered Student Organization
-										</option>
-									</select>
-
-
-
-								</div>
-							</div>
-							<div class="">
-								<textarea id="description" type="text"
-									style="width:486px; height:101px; margin-top: 5px;"></textarea>
-
-							</div>
-							<div class="row" style="grid-template-columns: auto auto;">
-
-								<div class="col">
-									<button class="btn-submit" type="submit" onclick="addEvent();">
-										Submit
-									</button>
-									<span id="addEventResult"></span>
+								<div class="">
+									<textarea
+										id="description"
+										type="text"
+										style="
+											width: 486px;
+											height: 101px;
+											margin-top: 5px;
+										"
+									></textarea>
 								</div>
 								<div
 									class="row"
@@ -216,114 +292,157 @@
 										</button>
 									</div>
 								</div>
-
-						</form>
-
-					</div>
-
-				</div>
-			</div>
-
-			<!-- Your existing University popup form -->
-			<div id="popupUniOverlay" class="overlay-container">
-				<div class="popup-box">
-					<h2>Create University Profile</h2>
-					<form class="form-container" action method="post">
-						<div class="row">
-							<div class="col">
-								<label class="form-label" for="eventName"> Event Name</label>
-								<input class="form-input" type="text" placeholder="Event name" id="eventName"
-									name="eventName" required>
-
-								<label class="form-label" for="uniStudents" style="margin-top: 55px;"> Number of Students</label>
-								<input class="form-input" type="number" placeholder="number of students" id="uniStudents" name="uniStudents"
-									required>
-
-							</div>
-
-
-							<div class="col">
-								<label class="form-label" for="location">Location:</label>
-								<input type="text" id="eventLocation" placeholder="Enter the address" /><br /><br />
-								<label id="lblresult"></label>
-
-								<label class="form-label" for="description">Description:</label>
-								<textarea id="description" type="text"
-								style="width: 260px; height:119px; margin-top: 5px;" placeholder="Enter a description about the university"></textarea>
-
-							</div>
+							</form>
 						</div>
+					</div>
+				</div>
 
-						<div class="row" style="grid-template-columns: auto auto;">
+				<!-- Your existing University popup form -->
+				<div id="popupUniOverlay" class="overlay-container">
+					<div class="popup-box">
+						<h2>Create University Profile</h2>
+						<form class="form-container" action method="post">
+							<div class="row">
+								<div class="col">
+									<label class="form-label" for="eventName">
+										Event Name</label
+									>
+									<input
+										class="form-input"
+										type="text"
+										placeholder="Event name"
+										id="eventName"
+										name="eventName"
+										required
+									/>
 
-							<div class="col">
-								<button class="btn-submit" type="submit" onclick="addEvent();">
-									Submit
-								</button>
-								<span id="addUniResult"></span>
+									<label
+										class="form-label"
+										for="uniStudents"
+										style="margin-top: 55px"
+									>
+										Number of Students</label
+									>
+									<input
+										class="form-input"
+										type="number"
+										placeholder="number of students"
+										id="uniStudents"
+										name="uniStudents"
+										required
+									/>
+								</div>
+
+								<div class="col">
+									<label class="form-label" for="location"
+										>Location:</label
+									>
+									<input
+										type="text"
+										id="eventLocation"
+										placeholder="Enter the address"
+									/><br /><br />
+									<label id="lblresult"></label>
+
+									<label class="form-label" for="description"
+										>Description:</label
+									>
+									<textarea
+										id="description"
+										type="text"
+										style="
+											width: 260px;
+											height: 119px;
+											margin-top: 5px;
+										"
+										placeholder="Enter a description about the university"
+									></textarea>
+								</div>
 							</div>
-							<div class="col">
-								<button class="btn-close-popup" onclick="toggleUniPopup()">
-									Close
-								</button>
+
+							<div
+								class="row"
+								style="grid-template-columns: auto auto"
+							>
+								<div class="col">
+									<button
+										class="btn-submit"
+										type="submit"
+										onclick="addEvent();"
+									>
+										Submit
+									</button>
+									<span id="addUniResult"></span>
+								</div>
+								<div class="col">
+									<button
+										class="btn-close-popup"
+										onclick="toggleUniPopup()"
+									>
+										Close
+									</button>
+								</div>
 							</div>
-
-					</form>
-
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
+		<script src="./js/index.js"></script>
+		<script src="./js/addEvent.js"></script>
+		<script src="./js/location.js"></script>
+		<script src="./js/createUni.js"></script>
+		<script>
+			// Call loadEvents function when the page loads
+			window.onload = function () {
+				loadEvents();
+				console.log(sessionStorage.getItem("userId"));
+				showLvl();
+			};
+		</script>
+		<script>
+			// Event listener for DOMContentLoaded
+			let locationData = null;
 
-		</div>
+			document.addEventListener("DOMContentLoaded", function () {
+				// Retrieve the autocomplete input element
+				var autocomplete = new google.maps.places.Autocomplete(
+					document.getElementById("eventLocation")
+				);
 
-	</div>
-	<script src="./js/index.js"></script>
-	<script src="./js/addEvent.js"></script>
-	<script src="./js/location.js"></script>
-	<script src="./js/createUni.js"></script>
-	<script>
-		// Call loadEvents function when the page loads
-		window.onload = function () {
-			loadEvents();
-			console.log(sessionStorage.getItem("userId"));
-			showLvl();
+				// Event listener for place_changed event
+				google.maps.event.addListener(
+					autocomplete,
+					"place_changed",
+					function () {
+						initMap();
+						var place = autocomplete.getPlace();
+						if (place.geometry) {
+							// Update the global locationData variable with the location details
+							locationData = {
+								name: place.formatted_address,
+								latitude: place.geometry.location.lat(),
+								longitude: place.geometry.location.lng(),
+							};
 
-		};
-	</script>
-	<script>
-		// Event listener for DOMContentLoaded
-		let locationData = null;
+							// Display latitude and longitude
+							var locationInfo =
+								"<b>Location:</b> " +
+								place.formatted_address +
+								"<br/>";
+							document.getElementById("lblresult").innerHTML =
+								locationInfo;
 
-		document.addEventListener('DOMContentLoaded', function () {
-			// Retrieve the autocomplete input element
-			var autocomplete = new google.maps.places.Autocomplete(document.getElementById("eventLocation"));
-
-			// Event listener for place_changed event
-			google.maps.event.addListener(autocomplete, 'place_changed', function () {
-				initMap();
-				var place = autocomplete.getPlace();
-				if (place.geometry) {
-					// Update the global locationData variable with the location details
-					locationData = {
-						name: place.formatted_address,
-						latitude: place.geometry.location.lat(),
-						longitude: place.geometry.location.lng()
-					};
-
-					// Display latitude and longitude
-					var locationInfo = "<b>Location:</b> " + place.formatted_address + "<br/>";
-					document.getElementById("lblresult").innerHTML = locationInfo;
-
-					// Log latitude and longitude to the console
-					console.log(locationData);
-					checkForLocation();
-				} else {
-					document.getElementById("lblresult").innerHTML = "No location details available for this place.";
-				}
+							// Log latitude and longitude to the console
+							console.log(locationData);
+							checkForLocation();
+						} else {
+							document.getElementById("lblresult").innerHTML =
+								"No location details available for this place.";
+						}
+					}
+				);
 			});
-		});
-	</script>
-</body>
-
+		</script>
+	</body>
 </html>
-
