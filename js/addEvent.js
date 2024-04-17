@@ -14,8 +14,6 @@ function addEvent() {
 
   let locID = checkForLocation();
 
-//create function to check thru location php
-  // check through AddLocation.php and use the returned userID for location to be added into Events.LocID
   let tmp = {
     eventName: eventName,
     locID: locID,
@@ -36,9 +34,11 @@ function addEvent() {
 
   xhr.onload = function () {
     if (xhr.status == 409) {
+      alert("Conflicting event times");
       document.getElementById("addEventResult").innerHTML =
-        "Event already exists";
-    } else if (xhr.status == 200) {
+        "Conflicting events";
+    } 
+    else if (xhr.status == 200) {
       window.alert("Event created!");
       createEventCard(tmp);
       loadEvents();
@@ -56,7 +56,6 @@ function createEventCard(jsonObject) {
   const boxContainer = document.querySelector(".box-container");
   const newBox = document.createElement("div");
   newBox.classList.add("box", "box-child");
-console.log(jsonObject);
   newBox.innerHTML = `
     <div>
     <p class="event-heading">${jsonObject.eventName}</p> 

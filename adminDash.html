@@ -218,13 +218,9 @@
 
 					// Display latitude and longitude
 					var locationInfo = "<b>Location:</b> " + place.formatted_address + "<br/>";
-					locationInfo += "Latitude: " + place.geometry.location.lat() + "<br/>";
-					locationInfo += "Longitude: " + place.geometry.location.lng();
 					document.getElementById("lblresult").innerHTML = locationInfo;
 
 					// Log latitude and longitude to the console
-					console.log("Latitude:", place.geometry.location.lat());
-					console.log("Longitude:", place.geometry.location.lng());
 					console.log(locationData);
 					checkForLocation();
 				} else {
