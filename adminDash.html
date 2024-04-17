@@ -180,24 +180,15 @@
 											<option value="select">
 												Select a Category
 											</option>
-											<option value="Social">
-												Social
+											<option value="Public">
+												Public
 											</option>
-											<option value="Fundraising">
+											<option value="Private">
 												Fundraising
 											</option>
-											<option value="Tech Talk">
-												Tech talk
+											<option value="RSO">
+												RSO
 											</option>
-											<option value="Career Readiness">
-												Career Readiness
-											</option>
-											<option
-												value="Organization Meeting"
-											>
-												Organization Meeting
-											</option>
-											<option value="Other">Other</option>
 										</select>
 									</div>
 
@@ -303,15 +294,14 @@
 						<form class="form-container" action method="post">
 							<div class="row">
 								<div class="col">
-									<label class="form-label" for="eventName">
-										Event Name</label
-									>
+									<label class="form-label" for="uniName">
+										University Name</label>
 									<input
 										class="form-input"
 										type="text"
-										placeholder="Event name"
-										id="eventName"
-										name="eventName"
+										placeholder="University name"
+										id="uniName"
+										name="uniName"
 										required
 									/>
 
@@ -367,8 +357,7 @@
 									<button
 										class="btn-submit"
 										type="submit"
-										onclick="addEvent();"
-									>
+										onclick="createUni();">
 										Submit
 									</button>
 									<span id="addUniResult"></span>
