@@ -8,19 +8,22 @@ function addEvent() {
 	let phone = document.getElementById("eventPhone").value;
 	let type = document.getElementById("eventType").value;
 	let rsoId = document.getElementById("rsoId").value;
-	console.log("Im here");
+	console.log("TYPE: ", type);
+	if (type != "RSO") {
+		rsoId = 0;
+	}
+	console.log("RSOID type: ", typeof rsoId);
 
 	document.getElementById("addEventResult").innerHTML = "";
-
 	checkForLocation(function (locId) {
 		let tmp = {
-			eventName: eventName,
-			locID: locId,
-			description: description,
-			start: start,
-			end: end,
-			date: date,
-			phone: phone,
+			Name: eventName,
+			LocID: locId,
+			Description: description,
+			Start: start,
+			End: end,
+			Date: date,
+			Phone: phone,
 			type: type,
 			uniId: sessionStorage.getItem("uniId"),
 			userId: sessionStorage.getItem("userId"),
@@ -28,7 +31,7 @@ function addEvent() {
 		};
 
 		let jsonPayload = JSON.stringify(tmp);
-
+		console.log("Payload", jsonPayload);
 		localStorage.setItem("Payload", jsonPayload);
 		let url = urlBase + "/AddEvent." + extension;
 

@@ -21,7 +21,7 @@ if ($conn->connect_error) {
     returnWithError("Connection failed: " . $conn->connect_error);
 } else {
     // Check if the location already exists
-    $checkLocationSql = "SELECT LocID FROM location WHERE Name = ? AND Longitude = ? AND Latitude = ?";
+    $checkLocationSql = "SELECT LocID FROM location WHERE LocName = ? AND Longitude = ? AND Latitude = ?";
     $stmt = $conn->prepare($checkLocationSql);
     $stmt->bind_param("sdd", $name, $longitude, $latitude); // Use "sdd" for string, double, double
     $stmt->execute();
@@ -30,11 +30,12 @@ if ($conn->connect_error) {
     if ($result->num_rows > 0) {
         // Location already exists, return existing LocID
         $row = $result->fetch_assoc();
-        returnWithError("Location already exists");
+        returnWithLocID($row["LocID"]);
+        // returnWithError("Location already exists");
     } 
     else {
         // Location does not exist, insert new location and return new LocID
-        $insertLocationSql = "INSERT INTO location (Name, Longitude, Latitude) VALUES (?, ?, ?)";
+        $insertLocationSql = "INSERT INTO location (LocName, Longitude, Latitude) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($insertLocationSql);
         $stmt->bind_param("sdd", $name, $longitude, $latitude); // Use "sdd" for string, double, double
         if ($stmt->execute()) {

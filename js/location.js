@@ -28,10 +28,13 @@ function checkForLocation(callback) {
 		// else if locID is returned
 		else if (xhr.status == 200) {
 			let jsonObject = JSON.parse(xhr.responseText);
-			if (jsonObject != null) {
-				console.log("check for loc: " + jsonObject.LocID);
-				callback(jsonObject.LocID);
+			if (jsonObject.error) {
+				console.log(jsonObject.error);
+				return;
 			}
+			console.log("What is object: " + jsonObject);
+			console.log("check for loc: " + jsonObject.LocID);
+			callback(jsonObject.LocID);
 		} else {
 			// Handle error cases (e.g., server error, invalid response)
 			console.error(

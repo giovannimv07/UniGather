@@ -20,6 +20,18 @@ function togglePopup() {
 	const overlay = document.getElementById("popupOverlay");
 	overlay.classList.toggle("show");
 }
+//To toggle Create University Button
+function openUniForm() {
+	document.getElementById("uniForm").style.display = "block";
+}
+
+function closeUniForm() {
+	document.getElementById("uniForm").style.display = "none";
+}
+function toggleUniPopup() {
+	const overlay = document.getElementById("popupUniOverlay");
+	overlay.classList.toggle("show");
+}
 
 // Function to remove a specific box
 function removeBox(event) {

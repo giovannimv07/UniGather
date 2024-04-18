@@ -14,6 +14,7 @@ $type = $inData['type'];
 $uniId = $inData["uniId"];
 $userId = $inData["userId"];
 $rsoId = $inData["rsoId"];
+
 // Database connection parameters
 $servername = "localhost";
 $username = "Admins";
