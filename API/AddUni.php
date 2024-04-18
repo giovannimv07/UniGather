@@ -23,54 +23,53 @@ if ($conn->connect_error) {
 } else {
     // Check if the provided LocID exists in the location table
     $checkLocIDSql = "SELECT LocID FROM location WHERE LocID = ?";
-    $stmtCheckLocID = $conn->prepare($checkLocIDSql);
-    $stmtCheckLocID->bind_param("i", $locID);
-    $stmtCheckLocID->execute();
-    $resultLocID = $stmtCheckLocID->get_result();
+    $stmt = $conn->prepare($checkLocIDSql);
+    $stmt->bind_param("i", $locID);
+    $stmt->execute();
+    $resultLocID = $stmt->get_result();
 
     if ($resultLocID->num_rows > 0) {
         // Check if there is already a university with the same LocID
         $checkUniSql = "SELECT UniID FROM university WHERE LocID = ?";
-        $stmtCheckUni = $conn->prepare($checkUniSql);
-        $stmtCheckUni->bind_param("i", $locID);
-        $stmtCheckUni->execute();
-        $resultUni = $stmtCheckUni->get_result();
+        $stmt = $conn->prepare($checkUniSql);
+        $stmt->bind_param("i", $locID);
+        $stmt->execute();
+        $resultUni = $stmt->get_result();
 
         if ($resultUni->num_rows > 0) {
             // University with the same LocID already exists
+            $stmt->close();
+            $conn->close();
             http_response_code(409);
             returnWithError("University with the same LocID already exists");
         } else {
             // Insert the new university
             $insertUniSql = "INSERT INTO university (Name, LocID, Description, UniStudents) VALUES (?, ?, ?, ?)";
-            $stmtInsertUni = $conn->prepare($insertUniSql);
-            $stmtInsertUni->bind_param("sisi", $name, $locID, $description, $uniStudents);
+            $stmt = $conn->prepare($insertUniSql);
+            $stmt->bind_param("sisi", $name, $locID, $description, $uniStudents);
 
-            if ($stmtInsertUni->execute()) {
+            if ($stmt->execute()) {
                 // University inserted successfully, retrieve the assigned UniID
-                $newUniID = $stmtInsertUni->insert_id;
+                $newUniID = $stmt->insert_id;
+                $stmt->close();
+                $conn->close();
                 http_response_code(200);
                 sendResultInfoAsJson(array("UniID" => $newUniID));
             } else {
                 // Failed to insert university
+                $stmt->close();
+                $conn->close();
                 http_response_code(409);
                 returnWithError("Failed to insert university");
             }
-
-            // Close insert statement
-            $stmtInsertUni->close();
         }
     } else {
         // LocID does not exist in location table
+        $stmt->close();
+        $conn->close();
         http_response_code(404);
         returnWithError("Invalid LocID. Location not found.");
     }
-
-    // Close statements and connection
-    $resultLocID->close();
-    $stmtCheckLocID->close();
-    $stmtCheckUni->close();
-    $conn->close();
 }
 
 function getRequestInfo()

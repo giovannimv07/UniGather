@@ -320,9 +320,9 @@
 									>
 									<input
 										type="text"
-										id="eventLocation"
+										id="uniLocation"
 										placeholder="Enter the address"
-									/><br /><br />
+									/>
 									<label id="lblresult"></label>
 
 									<label class="form-label" for="description"
@@ -389,6 +389,9 @@
 				// Retrieve the autocomplete input element
 				var autocomplete = new google.maps.places.Autocomplete(
 					document.getElementById("eventLocation")
+				);
+				var autocomplete = new google.maps.places.Autocomplete(
+					document.getElementById("uniLocation")
 				);
 
 				// Event listener for place_changed event

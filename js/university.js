@@ -221,12 +221,12 @@ function createRSO() {
 				if (this.readyState == 4 && this.status == 200) {
 					let jsonObject = JSON.parse(xhr.responseText);
 					if (jsonObject.error) {
-						console.log(jsonObject.error);
+						s;
 						return;
 					}
 					// Handle success response from server
 					alert("RSO created successfully!");
-					togglePopup(); // Close the popup after RSO creation
+					// togglePopup(); // Close the popup after RSO creation
 					loadRSO(); // Refresh RSO data on the page
 				}
 			};

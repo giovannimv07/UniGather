@@ -70,7 +70,7 @@ function createUni() {
 
 	xhr.onload = function () {
 		if (xhr.status == 409) {
-			alert("Conflicting event times");
+			alert("University already exist in that location");
 			document.getElementById("addUniResult").innerHTML =
 				"Couldn't do it !";
 		} else if (xhr.status == 200) {
