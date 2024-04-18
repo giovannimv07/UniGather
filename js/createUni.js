@@ -46,10 +46,11 @@ function canCreateUni() {
 function createUni() {
 	let name = document.getElementById("uniName").value;
 	// let location = document.getElementById("lblresult").value;
-	let description = document.getElementById("description").value;
+	let description = document.getElementById("unidescription").value;
 	let uniStudents = document.getElementById("uniStudents").value;
 
 	document.getElementById("addEventResult").innerHTML = "";
+	// console.log("Location Data: ", locationData);
 
 	checkForLocation(function (locID) {
 		let tmp = {
@@ -58,7 +59,7 @@ function createUni() {
 			description: description,
 			uniStudents: uniStudents,
 		};
-
+		// console.log("Paydaday: ", tmp);
 		let jsonPayload = JSON.stringify(tmp);
 
 		let url = urlBase + "/AddUni." + extension;

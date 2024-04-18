@@ -199,7 +199,7 @@
 											id="eventLocation"
 											placeholder="Enter the address"
 										/>
-										<label id="lblresult"></label>
+										<!-- <label id="lblresult"></label> -->
 
 										<label class="form-label">
 											Event End Time</label
@@ -329,7 +329,7 @@
 										>Description:</label
 									>
 									<textarea
-										id="description"
+										id="unidescription"
 										type="text"
 										style="
 											width: 260px;
@@ -418,7 +418,7 @@
 								locationInfo;
 
 							// Log latitude and longitude to the console
-							console.log(locationData);
+							console.log("Location Data: ", locationData);
 							// checkForLocation();
 						} else {
 							document.getElementById("lblresult").innerHTML =
