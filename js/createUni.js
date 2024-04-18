@@ -51,36 +51,37 @@ function createUni() {
 
 	document.getElementById("addEventResult").innerHTML = "";
 
-	let locID = checkForLocation();
+	checkForLocation(function (locID) {
+		let tmp = {
+			name: name,
+			locID: locID,
+			description: description,
+			uniStudents: uniStudents,
+		};
 
-	let tmp = {
-		name: name,
-		locID: locID,
-		description: description,
-		uniStudents: uniStudents,
-	};
+		let jsonPayload = JSON.stringify(tmp);
 
-	let jsonPayload = JSON.stringify(tmp);
+		let url = urlBase + "/AddUni." + extension;
 
-	let url = urlBase + "/AddUni." + extension;
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		xhr.onload = function () {
+			if (xhr.status == 409) {
+				alert("University already exist in that location");
+				document.getElementById("addUniResult").innerHTML =
+					"Couldn't do it !";
+			} else if (xhr.status == 200) {
+				window.alert("University created!");
+			}
+		};
 
-	xhr.onload = function () {
-		if (xhr.status == 409) {
-			alert("University already exist in that location");
+		xhr.onerror = function () {
 			document.getElementById("addUniResult").innerHTML =
-				"Couldn't do it !";
-		} else if (xhr.status == 200) {
-			window.alert("University created!");
-		}
-	};
+				"Error occurred";
+		};
 
-	xhr.onerror = function () {
-		document.getElementById("addUniResult").innerHTML = "Error occurred";
-	};
-
-	xhr.send(jsonPayload);
+		xhr.send(jsonPayload);
+	});
 }
